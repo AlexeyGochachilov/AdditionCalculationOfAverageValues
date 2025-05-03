@@ -23,11 +23,11 @@ public class Calculate {
         BigDecimal halfResult = result.divide(new BigDecimal(2)).add(MINValue);
         BigDecimal quarterResult = result.divide(new BigDecimal(4)).add(MINValue);
 
-        String stringNowValue = "--> Nov = " + novValue;
-        String stringMAXValue = "52 w High = " + MAXValue;
-        String stringMINValue = "52 w Low = " + MINValue;
-        String fiftyPercent = "50% = " + halfResult;
-        String twentyFivePercent = "25% = " + quarterResult;
+        String stringNowValue =    "--> Nov   = " + novValue;
+        String stringMAXValue =    "52 w High = " + MAXValue;
+        String stringMINValue =    "52 w Low  = " + MINValue;
+        String fiftyPercent =      "50%       = " + halfResult;
+        String twentyFivePercent = "25% =       " + quarterResult;
 
         System.out.println();
         sb.append(stringMAXValue).append("\n");
