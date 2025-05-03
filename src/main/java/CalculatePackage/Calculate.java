@@ -4,10 +4,17 @@ import java.math.BigDecimal;
 
 public class Calculate {
 
-    public static void calculateAverageValues(String info, String string) {
+    private static String stringBuilder;
 
-        String[] values = string.trim().split("; ");
-        StringBuilder sb = new StringBuilder(info).append("\n");
+    public static String getStringBuilder() {
+        return stringBuilder;
+    }
+
+    public static void calculateAverageValues(String info) {
+
+        String[] infos = info.trim().split(", ");
+        String[] values = infos[1].split("; ");
+        StringBuilder sb = new StringBuilder(infos[0]).append("\n");
 
         BigDecimal novValue = new BigDecimal(values[0]);
         BigDecimal MAXValue = new BigDecimal(values[1]);
@@ -36,6 +43,8 @@ public class Calculate {
             sb.append(stringNowValue + " очень выгодная сделка").append("\n");
         }
         sb.append(stringMINValue).append("\n");
+        stringBuilder = sb.toString();
+        System.out.println(stringBuilder);
     }
 
 }
