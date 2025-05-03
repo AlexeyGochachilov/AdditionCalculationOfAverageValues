@@ -1,0 +1,5 @@
+D:\NEW_JAVA\AdditionCalculationOfAverageValues\src\main\java
+D:\NEW_JAVA\AdditionCalculationOfAverageValues\target\AdditionCalculationOfAverageValues-1.0-SNAPSHOT.jar
+D:\NEW_JAVA\AdditionCalculationOfAverageValues\out\artifacts\AdditionCalculationOfAverageValues_jar
+AdditionCalculationOfAverageValues-1.0-SNAPSHOT.jar
+$ java -jar AdditionCalculationOfAverageValues.jar

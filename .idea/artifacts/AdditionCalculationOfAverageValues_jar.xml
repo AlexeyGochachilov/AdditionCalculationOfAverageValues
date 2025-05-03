@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AdditionCalculationOfAverageValues:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AdditionCalculationOfAverageValues_jar</output-path>
+    <root id="archive" name="AdditionCalculationOfAverageValues.jar">
+      <element id="module-output" name="AdditionCalculationOfAverageValues" />
+    </root>
+  </artifact>
+</component>
