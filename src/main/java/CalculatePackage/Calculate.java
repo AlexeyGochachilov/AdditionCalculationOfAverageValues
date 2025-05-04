@@ -43,12 +43,14 @@ public class Calculate {
         BigDecimal result = MAXValue.subtract(MINValue);
         BigDecimal halfResult = result.divide(new BigDecimal(2)).add(MINValue);
         BigDecimal quarterResult = result.divide(new BigDecimal(4)).add(MINValue);
+        BigDecimal threeEighthsResult = result.multiply(new BigDecimal("0.375")).add(MINValue);
 
-        String stringNowValue =    "--> Nov   = " + novValue;
-        String stringMAXValue =    "52 w High = " + MAXValue;
-        String stringMINValue =    "52 w Low  = " + MINValue;
-        String fiftyPercent =      "50%       = " + halfResult;
-        String twentyFivePercent = "25% =       " + quarterResult;
+        String stringNowValue = "--> Nov   = " + novValue;
+        String stringMAXValue = "52 w High = " + MAXValue;
+        String stringMINValue = "52 w Low  = " + MINValue;
+        String fiftyPercent = "50%       = " + halfResult;
+        String twentyFivePercent = "25%       = " + quarterResult;
+        String threeEighthsPercent = "37.5%     = " + threeEighthsResult;
 
         System.out.println();
         sb.append(stringMAXValue).append("\n");
@@ -57,7 +59,13 @@ public class Calculate {
         }
         sb.append(fiftyPercent).append("\n");
         if (novValue.compareTo(halfResult) < 0 && novValue.compareTo(quarterResult) >= 0) {
-            sb.append(stringNowValue + " выгодная сделка").append("\n");
+            if (novValue.compareTo(threeEighthsResult) > 0) {
+                sb.append(stringNowValue + " не очень выгодная сделка").append("\n");
+                sb.append(threeEighthsPercent).append("\n");
+            } else {
+                sb.append(threeEighthsPercent).append("\n");
+                sb.append(stringNowValue + " нормальная сделка").append("\n");
+            }
             infoNormalDeal.append(companyName + " ");
             countNormalDeal++;
         }

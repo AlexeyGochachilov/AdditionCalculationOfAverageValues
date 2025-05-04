@@ -21,7 +21,7 @@ public class Main {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
         String dateString = formatter.format(date);
-        Path path = Path.of("D:\\market_info\\info" + dateString + ".txt");
+        Path path = Path.of("D:\\market_info\\info_" + dateString + ".txt");
 
         System.out.println();
         System.out.println("Enter name Company, now value and 52 week high and low values" +
@@ -40,10 +40,11 @@ public class Main {
 
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toString(), true))) {
                     writer.write(sb.toString());
-                    System.out.println("Data saved to info.txt");
+                    System.out.println("Data saved to path: " + path);
                 } catch (Exception e) {
                     System.out.println("Error writing to file: " + e.getMessage());
                 }
+
                 isRunning = false;
                 System.out.println("Exiting the program.");
 
