@@ -30,7 +30,14 @@ public class Main {
         String info = scanner.nextLine();
 
         while (isRunning) {
+
             if (info.equalsIgnoreCase("exit")) {
+
+                sb.append(calc.getCountNormalDeal()).append(". Company with normal deal: ")
+                        .append(calc.getInfoNormalDeal()).append("\n");
+                sb.append(calc.getCountGoodDeal()).append(". Company with good deal: ")
+                        .append(calc.getInfoGoodDeal()).append("\n");
+
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toString(), true))) {
                     writer.write(sb.toString());
                     System.out.println("Data saved to info.txt");
@@ -39,7 +46,9 @@ public class Main {
                 }
                 isRunning = false;
                 System.out.println("Exiting the program.");
+
             } else {
+
                 calc.calculateAverageValues(info);
                 System.out.println("Enter name Company, now value and 52 week high and low values" +
                         " as (Company, 75; 100; 50): ");

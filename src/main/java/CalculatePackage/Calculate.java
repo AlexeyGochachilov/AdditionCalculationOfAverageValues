@@ -7,8 +7,8 @@ public class Calculate {
     private static String stringBuilder;
     private static StringBuilder infoGoodDeal = new StringBuilder();
     private static StringBuilder infoNormalDeal = new StringBuilder();
-    private int countGoodDeal = 1;
-    private int countNormalDeal = 1;
+    private int countGoodDeal = 0;
+    private int countNormalDeal = 0;
 
     public static StringBuilder getInfoGoodDeal() {
         return infoGoodDeal;
@@ -58,13 +58,13 @@ public class Calculate {
         sb.append(fiftyPercent).append("\n");
         if (novValue.compareTo(halfResult) < 0 && novValue.compareTo(quarterResult) >= 0) {
             sb.append(stringNowValue + " выгодная сделка").append("\n");
-            infoNormalDeal.append(companyName);
+            infoNormalDeal.append(companyName + " ");
             countNormalDeal++;
         }
         sb.append(twentyFivePercent).append("\n");
         if (novValue.compareTo(quarterResult) < 0) {
             sb.append(stringNowValue + " очень выгодная сделка").append("\n");
-            infoGoodDeal.append(companyName);
+            infoGoodDeal.append(companyName + " ");
             countGoodDeal++;
         }
         sb.append(stringMINValue).append("\n\n");
