@@ -5,16 +5,37 @@ import java.math.BigDecimal;
 public class Calculate {
 
     private static String stringBuilder;
+    private static StringBuilder infoGoodDeal = new StringBuilder();
+    private static StringBuilder infoNormalDeal = new StringBuilder();
+    private int countGoodDeal = 1;
+    private int countNormalDeal = 1;
+
+    public static StringBuilder getInfoGoodDeal() {
+        return infoGoodDeal;
+    }
+
+    public static StringBuilder getInfoNormalDeal() {
+        return infoNormalDeal;
+    }
+
+    public int getCountGoodDeal() {
+        return countGoodDeal;
+    }
+
+    public int getCountNormalDeal() {
+        return countNormalDeal;
+    }
 
     public static String getStringBuilder() {
         return stringBuilder;
     }
 
-    public static void calculateAverageValues(String info) {
+    public void calculateAverageValues(String info) {
 
         String[] infos = info.trim().split(", ");
         String[] values = infos[1].split("; ");
         StringBuilder sb = new StringBuilder(infos[0]).append("\n");
+        String companyName = infos[0];
 
         BigDecimal novValue = new BigDecimal(values[0]);
         BigDecimal MAXValue = new BigDecimal(values[1]);
@@ -37,12 +58,16 @@ public class Calculate {
         sb.append(fiftyPercent).append("\n");
         if (novValue.compareTo(halfResult) < 0 && novValue.compareTo(quarterResult) >= 0) {
             sb.append(stringNowValue + " выгодная сделка").append("\n");
+            infoNormalDeal.append(companyName);
+            countNormalDeal++;
         }
         sb.append(twentyFivePercent).append("\n");
         if (novValue.compareTo(quarterResult) < 0) {
             sb.append(stringNowValue + " очень выгодная сделка").append("\n");
+            infoGoodDeal.append(companyName);
+            countGoodDeal++;
         }
-        sb.append(stringMINValue).append("\n");
+        sb.append(stringMINValue).append("\n\n");
         stringBuilder = sb.toString();
         System.out.println(stringBuilder);
     }

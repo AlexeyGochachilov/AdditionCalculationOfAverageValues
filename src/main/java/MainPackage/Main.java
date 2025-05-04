@@ -1,11 +1,13 @@
 package MainPackage;
 
+import CalculatePackage.Calculate;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
-
-import static CalculatePackage.Calculate.calculateAverageValues;
-import static CalculatePackage.Calculate.getStringBuilder;
 
 public class Main {
 
@@ -15,6 +17,12 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Calculate calc = new Calculate();
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
+        String dateString = formatter.format(date);
+        Path path = Path.of("D:\\market_info\\info" + dateString + ".txt");
+
         System.out.println();
         System.out.println("Enter name Company, now value and 52 week high and low values" +
                 " as (Company, 75; 100; 50): ");
@@ -23,7 +31,7 @@ public class Main {
 
         while (isRunning) {
             if (info.equalsIgnoreCase("exit")) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("info.txt"))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toString(), true))) {
                     writer.write(sb.toString());
                     System.out.println("Data saved to info.txt");
                 } catch (Exception e) {
@@ -32,10 +40,10 @@ public class Main {
                 isRunning = false;
                 System.out.println("Exiting the program.");
             } else {
-                calculateAverageValues(info);
+                calc.calculateAverageValues(info);
                 System.out.println("Enter name Company, now value and 52 week high and low values" +
                         " as (Company, 75; 100; 50): ");
-                sb.append(getStringBuilder());
+                sb.append(calc.getStringBuilder());
                 System.out.println();
                 info = scanner.nextLine();
             }
