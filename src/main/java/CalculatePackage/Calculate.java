@@ -62,7 +62,6 @@ public class Calculate {
         String twentyFivePercent = "25%       = " + quarterResult;
         String threeEighthsPercent = "37.5%     = " + threeEighthsResult;
 
-
         sb.append(stringMAXValue).append("\n");
         if (novValue.compareTo(halfResult) >= 0) {
             sb.append(stringNowValue + " не выгодная сделка").append("\n");
