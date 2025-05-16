@@ -1,18 +1,15 @@
 package MainPackage;
 
 import CalculatePackage.Calculate;
+import Stock.Stock;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.*;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
-    public static Scanner scanner = new Scanner(System.in);
-    public static boolean isRunning = true;
     public static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
@@ -21,42 +18,43 @@ public class Main {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
         String dateString = formatter.format(date);
-        Path path = Path.of("D:\\market_info\\info_" + dateString + ".txt");
+        Path pathOut = Path.of("D:\\market_info\\info_" + dateString + ".txt");
+        Path pathIn = Path.of("D:\\NEW_JAVA\\AdditionCalculationOfAverageValues\\StocksInfo.txt");
+        List<Stock> stockList = new ArrayList<>();
 
-        System.out.println();
-        System.out.println("Enter name Company, now value and 52 week high and low values" +
-                " as (Company, 75; 100; 50): ");
-        System.out.println();
-        String info = scanner.nextLine();
-
-        while (isRunning) {
-
-            if (info.equalsIgnoreCase("exit")) {
-
-                sb.append(calc.getCountNormalDeal()).append(". Company with normal deal: ")
-                        .append(calc.getInfoNormalDeal()).append("\n");
-                sb.append(calc.getCountGoodDeal()).append(". Company with good deal: ")
-                        .append(calc.getInfoGoodDeal()).append("\n");
-
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toString(), true))) {
-                    writer.write(sb.toString());
-                    System.out.println("Data saved to path: " + path);
-                } catch (Exception e) {
-                    System.out.println("Error writing to file: " + e.getMessage());
-                }
-
-                isRunning = false;
-                System.out.println("Exiting the program.");
-
-            } else {
-
-                calc.calculateAverageValues(info);
-                System.out.println("Enter name Company, now value and 52 week high and low values" +
-                        " as (Company, 75; 100; 50): ");
-                sb.append(calc.getStringBuilder());
-                System.out.println();
-                info = scanner.nextLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(pathIn.toString()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] stockConstr = line.split(" ");
+                Stock stock = new Stock(stockConstr[0], stockConstr[1], stockConstr[2], stockConstr[3]);
+                stockList.add(stock);
             }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Iterator<Stock> stockIterator = stockList.iterator();
+
+        while (stockIterator.hasNext()) {
+
+            calc.calculateAverageValues(stockIterator.next());
+            sb.append(calc.getStringBuilder());
+        }
+
+        System.out.println("Exiting the program.");
+        sb.append(calc.getCountNormalDeal()).append(". Company with normal deal: ")
+                .append(calc.getInfoNormalDeal()).append("\n");
+        sb.append(calc.getCountGoodDeal()).append(". Company with good deal: ")
+                .append(calc.getInfoGoodDeal()).append("\n");
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathOut.toString(), true))) {
+            writer.write(sb.toString());
+            System.out.println("Data saved to path: " + pathOut);
+        } catch (Exception e) {
+            System.out.println("Error writing to file: " + e.getMessage());
         }
     }
 }
+

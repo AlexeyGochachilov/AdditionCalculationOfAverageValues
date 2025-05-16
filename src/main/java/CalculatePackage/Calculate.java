@@ -1,5 +1,7 @@
 package CalculatePackage;
 
+import Stock.Stock;
+
 import java.math.BigDecimal;
 
 public class Calculate {
@@ -9,6 +11,10 @@ public class Calculate {
     private static StringBuilder infoNormalDeal = new StringBuilder();
     private int countGoodDeal = 0;
     private int countNormalDeal = 0;
+    private BigDecimal novValue = null;
+    private BigDecimal MAXValue = null;
+    private BigDecimal MINValue = null;
+    private BigDecimal result = null;
 
     public static StringBuilder getInfoGoodDeal() {
         return infoGoodDeal;
@@ -30,20 +36,24 @@ public class Calculate {
         return stringBuilder;
     }
 
-    public void calculateAverageValues(String info) {
+    private BigDecimal percent (String s) {
+        result = MAXValue.subtract(MINValue);
+        BigDecimal percent = result.multiply(new BigDecimal(s)).add(MINValue);
+        return percent;
+    }
 
-        String[] infos = info.trim().split(", ");
-        String[] values = infos[1].split("; ");
-        StringBuilder sb = new StringBuilder(infos[0]).append("\n");
-        String companyName = infos[0];
+    public void calculateAverageValues(Stock stock) {
 
-        BigDecimal novValue = new BigDecimal(values[0]);
-        BigDecimal MAXValue = new BigDecimal(values[1]);
-        BigDecimal MINValue = new BigDecimal(values[2]);
-        BigDecimal result = MAXValue.subtract(MINValue);
-        BigDecimal halfResult = result.divide(new BigDecimal(2)).add(MINValue);
-        BigDecimal quarterResult = result.divide(new BigDecimal(4)).add(MINValue);
-        BigDecimal threeEighthsResult = result.multiply(new BigDecimal("0.375")).add(MINValue);
+        StringBuilder sb = new StringBuilder(stock.getName()).append("\n");
+        String companyName = stock.getName();
+
+        novValue = new BigDecimal(stock.getNowValue());
+        MAXValue = new BigDecimal(stock.getMaxValue());
+        MINValue = new BigDecimal(stock.getMinValue());
+
+        BigDecimal halfResult = percent("0.5");
+        BigDecimal quarterResult = percent("0.25");
+        BigDecimal threeEighthsResult = percent("0.375");
 
         String stringNowValue = "--> Nov   = " + novValue;
         String stringMAXValue = "52 w High = " + MAXValue;
