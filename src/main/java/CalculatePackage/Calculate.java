@@ -36,7 +36,7 @@ public class Calculate {
         return stringBuilder;
     }
 
-    private BigDecimal percent (String s) {
+    private BigDecimal percent(String s) {
         result = MAXValue.subtract(MINValue);
         BigDecimal percent = result.multiply(new BigDecimal(s)).add(MINValue);
         return percent;
@@ -62,7 +62,6 @@ public class Calculate {
         String twentyFivePercent = "25%       = " + quarterResult;
         String threeEighthsPercent = "37.5%     = " + threeEighthsResult;
 
-        System.out.println();
         sb.append(stringMAXValue).append("\n");
         if (novValue.compareTo(halfResult) >= 0) {
             sb.append(stringNowValue + " не выгодная сделка").append("\n");
@@ -85,7 +84,7 @@ public class Calculate {
             infoGoodDeal.append(companyName + " ");
             countGoodDeal++;
         }
-        sb.append(stringMINValue).append("\n\n");
+        sb.append(stringMINValue).append("\n");
         stringBuilder = sb.toString();
         System.out.println(stringBuilder);
     }
