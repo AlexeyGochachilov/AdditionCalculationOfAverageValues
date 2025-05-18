@@ -16,11 +16,11 @@ public class Calculate {
     private BigDecimal MINValue = null;
     private BigDecimal result = null;
 
-    public static StringBuilder getInfoGoodDeal() {
+    public StringBuilder getInfoGoodDeal() {
         return infoGoodDeal;
     }
 
-    public static StringBuilder getInfoNormalDeal() {
+    public StringBuilder getInfoNormalDeal() {
         return infoNormalDeal;
     }
 
@@ -32,7 +32,7 @@ public class Calculate {
         return countNormalDeal;
     }
 
-    public static String getStringBuilder() {
+    public String getStringBuilder() {
         return stringBuilder;
     }
 

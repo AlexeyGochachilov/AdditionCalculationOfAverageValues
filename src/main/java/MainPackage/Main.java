@@ -1,12 +1,14 @@
 package MainPackage;
 
 import CalculatePackage.Calculate;
+import IO.ReadFile;
+import IO.WriteFile;
 import Stock.Stock;
 
-import java.io.*;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Iterator;
 
 public class Main {
 
@@ -16,45 +18,30 @@ public class Main {
 
         Calculate calc = new Calculate();
         Date date = new Date();
+        ReadFile readFile = new ReadFile();
+        WriteFile writeFile = new WriteFile();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
+
         String dateString = formatter.format(date);
         Path pathOut = Path.of("D:\\market_info\\info_" + dateString + ".txt");
         Path pathIn = Path.of("D:\\NEW_JAVA\\AdditionCalculationOfAverageValues\\StocksInfo.txt");
-        List<Stock> stockList = new ArrayList<>();
+        Iterator<Stock> stockIterator = readFile.creatingListFromFile(pathIn.toString()).iterator();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(pathIn.toString()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] stockConstr = line.split(" ");
-                Stock stock = new Stock(stockConstr[0], stockConstr[1], stockConstr[2], stockConstr[3]);
-                stockList.add(stock);
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        Iterator<Stock> stockIterator = stockList.iterator();
+        System.out.println("Starting the program...");
 
         while (stockIterator.hasNext()) {
-
             calc.calculateAverageValues(stockIterator.next());
             sb.append(calc.getStringBuilder());
         }
 
         System.out.println("Exiting the program.");
+
         sb.append(calc.getCountNormalDeal()).append(". Company with normal deal: ")
                 .append(calc.getInfoNormalDeal()).append("\n");
         sb.append(calc.getCountGoodDeal()).append(". Company with good deal: ")
                 .append(calc.getInfoGoodDeal()).append("\n");
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(pathOut.toString(), true))) {
-            writer.write(sb.toString());
-            System.out.println("Data saved to path: " + pathOut);
-        } catch (Exception e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-        }
+        writeFile.writeToFile(pathOut.toString(), sb.toString());
     }
 }
 
