@@ -11,7 +11,7 @@ public class ReadFile {
 
         List<Stock> stockList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line, A, B, C;
+            String line, A, B, C, MAX, MIN;
             while ((line = reader.readLine()) != null) {
                 String[] stockConstr = line.trim().split(" ");
                 if (stockConstr.length != 4) {
@@ -22,22 +22,14 @@ public class ReadFile {
                 A = stockConstr[1];
                 B = stockConstr[2];
                 C = stockConstr[3];
-                if (Double.parseDouble(A) < Double.parseDouble(B)) {
-                    if (Double.parseDouble(A) > Double.parseDouble(C)) {
-                        stock = new Stock(stockConstr[0], A, B, C);
-                    } else if (Double.parseDouble(B) < Double.parseDouble(C)) {
-                        stock = new Stock(stockConstr[0], B, C, A);
-                    } else if (Double.parseDouble(C) > Double.parseDouble(A)) {
-                        stock = new Stock(stockConstr[0], C, B, A);
-                    }
-                } else if (Double.parseDouble(A) > Double.parseDouble(B)) {
-                    if (Double.parseDouble(B) > Double.parseDouble(C)) {
-                        stock = new Stock(stockConstr[0], B, A, C);
-                    } else if (Double.parseDouble(C) > Double.parseDouble(A)) {
-                        stock = new Stock(stockConstr[0], A, C, B);
-                    } else if (Double.parseDouble(C) > Double.parseDouble(B)) {
-                        stock = new Stock(stockConstr[0], C, A, B);
-                    }
+                MAX = "" + (Math.max (Math.max(Double.parseDouble(A), Double.parseDouble(B)), Double.parseDouble(C));
+                MIN = "" + (Math.min (Math.min(Double.parseDouble(A), Double.parseDouble(B)), Double.parseDouble(C));
+                if (Double.parseDouble(A) < Double.parseDouble(MAX) && Double.parseDouble(A) > Double.parseDouble(MIN)) {
+                        stock = new Stock(stockConstr[0], A, MAX, MIN);
+                    }  else if (Double.parseDouble(B) < Double.parseDouble(MAX) && Double.parseDouble(B) > Double.parseDouble(MIN)) {
+                        stock = new Stock(stockConstr[0], B, MAX, MIN);
+                    } else if (Double.parseDouble(C) < Double.parseDouble(MAX) && Double.parseDouble(C) > Double.parseDouble(MIN)) {
+                        stock = new Stock(stockConstr[0], C, MAX, MIN);
                 }
                 stockList.add(stock);
             }
