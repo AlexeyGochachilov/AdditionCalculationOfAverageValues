@@ -18,6 +18,7 @@ public class ReadFile {
                     System.out.println("Invalid line format: " + line);
                     continue; // Skip this line and continue with the next
                 }
+try {
                 Stock stock = null;
                 A = stockConstr[1];
                 B = stockConstr[2];
@@ -31,7 +32,13 @@ public class ReadFile {
                     } else if (Double.parseDouble(C) < Double.parseDouble(MAX) && Double.parseDouble(C) > Double.parseDouble(MIN)) {
                         stock = new Stock(stockConstr[0], C, MAX, MIN);
                 }
-                stockList.add(stock);
+                if (stock != null) {
+        stockList.add(stock);
+    }
+} catch (NumberFormatException e) {
+    System.out.println("Invalid number format in line: " + line);
+    // Можно добавить логирование или другие действия по необходимости
+}
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
