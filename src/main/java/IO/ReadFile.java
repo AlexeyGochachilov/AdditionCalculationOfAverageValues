@@ -11,7 +11,8 @@ public class ReadFile {
 
         List<Stock> stockList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line, A, B, C, MAX, MIN;
+            String line;
+            double a, b, c, MAX, MIN;
             while ((line = reader.readLine()) != null) {
                 String[] stockConstr = line.trim().split(" ");
                 if (stockConstr.length != 4) {
@@ -20,13 +21,13 @@ public class ReadFile {
                 }
 try {
                 Stock stock = null;
-                A = stockConstr[1];
-                B = stockConstr[2];
-                C = stockConstr[3];
-                MAX = "" + (Math.max (Math.max(Double.parseDouble(A), Double.parseDouble(B)), Double.parseDouble(C)));
-                MIN = "" + (Math.min (Math.min(Double.parseDouble(A), Double.parseDouble(B)), Double.parseDouble(C)));
-                if (Double.parseDouble(A) < Double.parseDouble(MAX) && Double.parseDouble(A) > Double.parseDouble(MIN)) {
-                        stock = new Stock(stockConstr[0], A, MAX, MIN);
+                a = Double.parseDouble(stockConstr[1]);
+                b = Double.parseDouble(stockConstr[2]);
+                c = Double.parseDouble(stockConstr[3]);
+                MAX = Math.max (Math.max(a, b), c);
+                MIN = Math.min (Math.min(a, b), c);;
+                if (a < MAX && a > MIN) {
+                        stock = new Stock(stockConstr[0], String.valyeOf(a), MAX, MIN);
                     }  else if (Double.parseDouble(B) < Double.parseDouble(MAX) && Double.parseDouble(B) > Double.parseDouble(MIN)) {
                         stock = new Stock(stockConstr[0], B, MAX, MIN);
                     } else if (Double.parseDouble(C) < Double.parseDouble(MAX) && Double.parseDouble(C) > Double.parseDouble(MIN)) {
