@@ -22,8 +22,8 @@ public class ReadFile {
                 A = stockConstr[1];
                 B = stockConstr[2];
                 C = stockConstr[3];
-                MAX = "" + (Math.max (Math.max(Double.parseDouble(A), Double.parseDouble(B)), Double.parseDouble(C));
-                MIN = "" + (Math.min (Math.min(Double.parseDouble(A), Double.parseDouble(B)), Double.parseDouble(C));
+                MAX = "" + (Math.max (Math.max(Double.parseDouble(A), Double.parseDouble(B)), Double.parseDouble(C)));
+                MIN = "" + (Math.min (Math.min(Double.parseDouble(A), Double.parseDouble(B)), Double.parseDouble(C)));
                 if (Double.parseDouble(A) < Double.parseDouble(MAX) && Double.parseDouble(A) > Double.parseDouble(MIN)) {
                         stock = new Stock(stockConstr[0], A, MAX, MIN);
                     }  else if (Double.parseDouble(B) < Double.parseDouble(MAX) && Double.parseDouble(B) > Double.parseDouble(MIN)) {
