@@ -1,11 +1,13 @@
 package Stock;
 
+import java.math.BigDecimal;
+
 public class Stock {
 
     private String name;
-    private String nowValue;
-    private String maxValue;
-    private String minValue;
+    private BigDecimal nowValue;
+    private BigDecimal maxValue;
+    private BigDecimal minValue;
 
     public String getName() {
         return name;
@@ -16,34 +18,34 @@ public class Stock {
         return this;
     }
 
-    public String getNowValue() {
+    public BigDecimal getNowValue() {
         return nowValue;
     }
 
-    public Stock setNowValue(String nowValue) {
+    public Stock setNowValue(BigDecimal nowValue) {
         this.nowValue = nowValue;
         return this;
     }
 
-    public String getMaxValue() {
+    public BigDecimal getMaxValue() {
         return maxValue;
     }
 
-    public Stock setMaxValue(String maxValue) {
+    public Stock setMaxValue(BigDecimal maxValue) {
         this.maxValue = maxValue;
         return this;
     }
 
-    public String getMinValue() {
+    public BigDecimal getMinValue() {
         return minValue;
     }
 
-    public Stock setMinValue(String minValue) {
+    public Stock setMinValue(BigDecimal minValue) {
         this.minValue = minValue;
         return this;
     }
 
-    public Stock(String name, String nowValue, String maxValue, String minValue) {
+    public Stock(String name, BigDecimal nowValue, BigDecimal maxValue, BigDecimal minValue) {
         this.name = name;
         this.nowValue = nowValue;
         this.maxValue = maxValue;

@@ -1,6 +1,6 @@
 package MainPackage;
 
-import CalculatePackage.Calculate;
+import UtilPackage.Calculate;
 import IO.ReadFile;
 import IO.WriteFile;
 import Stock.Stock;
@@ -21,8 +21,8 @@ public class Main {
         ReadFile readFile = new ReadFile();
         WriteFile writeFile = new WriteFile();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
-
         String dateString = formatter.format(date);
+
         Path pathOut = Path.of("D:\\market_info\\info_" + dateString + ".txt");
         Path pathIn = Path.of("D:\\NEW_JAVA\\AdditionCalculationOfAverageValues\\StocksInfo.txt");
         Iterator<Stock> stockIterator = readFile.creatingListFromFile(pathIn.toString()).iterator();

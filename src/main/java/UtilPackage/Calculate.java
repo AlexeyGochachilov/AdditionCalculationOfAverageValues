@@ -1,4 +1,4 @@
-package CalculatePackage;
+package UtilPackage;
 
 import Stock.Stock;
 
@@ -11,10 +11,8 @@ public class Calculate {
     private static StringBuilder infoNormalDeal = new StringBuilder();
     private int countGoodDeal = 0;
     private int countNormalDeal = 0;
-    private BigDecimal novValue = null;
     private BigDecimal MAXValue = null;
     private BigDecimal MINValue = null;
-    private BigDecimal result = null;
 
     public StringBuilder getInfoGoodDeal() {
         return infoGoodDeal;
@@ -37,9 +35,8 @@ public class Calculate {
     }
 
     private BigDecimal percent(String s) {
-        result = MAXValue.subtract(MINValue);
-        BigDecimal percent = result.multiply(new BigDecimal(s)).add(MINValue);
-        return percent;
+        BigDecimal result = MAXValue.subtract(MINValue);
+        return result.multiply(new BigDecimal(s)).add(MINValue);
     }
 
     public void calculateAverageValues(Stock stock) {
@@ -47,9 +44,9 @@ public class Calculate {
         StringBuilder sb = new StringBuilder(stock.getName()).append("\n");
         String companyName = stock.getName();
 
-        novValue = new BigDecimal(stock.getNowValue());
-        MAXValue = new BigDecimal(stock.getMaxValue());
-        MINValue = new BigDecimal(stock.getMinValue());
+        BigDecimal novValue = stock.getNowValue();
+        MAXValue = stock.getMaxValue();
+        MINValue = stock.getMinValue();
 
         BigDecimal halfResult = percent("0.5");
         BigDecimal quarterResult = percent("0.25");
@@ -64,24 +61,24 @@ public class Calculate {
 
         sb.append(stringMAXValue).append("\n");
         if (novValue.compareTo(halfResult) >= 0) {
-            sb.append(stringNowValue + " не выгодная сделка").append("\n");
+            sb.append(stringNowValue).append(" не выгодная сделка").append("\n");
         }
         sb.append(fiftyPercent).append("\n");
         if (novValue.compareTo(halfResult) < 0 && novValue.compareTo(quarterResult) >= 0) {
             if (novValue.compareTo(threeEighthsResult) > 0) {
-                sb.append(stringNowValue + " не очень выгодная сделка").append("\n");
+                sb.append(stringNowValue).append(" не очень выгодная сделка").append("\n");
                 sb.append(threeEighthsPercent).append("\n");
             } else {
                 sb.append(threeEighthsPercent).append("\n");
-                sb.append(stringNowValue + " нормальная сделка").append("\n");
+                sb.append(stringNowValue).append(" нормальная сделка").append("\n");
             }
-            infoNormalDeal.append(companyName + " ");
+            infoNormalDeal.append(companyName).append(" ");
             countNormalDeal++;
         }
         sb.append(twentyFivePercent).append("\n");
         if (novValue.compareTo(quarterResult) < 0) {
-            sb.append(stringNowValue + " очень выгодная сделка").append("\n");
-            infoGoodDeal.append(companyName + " ");
+            sb.append(stringNowValue).append(" очень выгодная сделка").append("\n");
+            infoGoodDeal.append(companyName).append(" ");
             countGoodDeal++;
         }
         sb.append(stringMINValue).append("\n");
