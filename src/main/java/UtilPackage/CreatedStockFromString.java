@@ -3,6 +3,7 @@ package UtilPackage;
 import Stock.Stock;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 public interface CreatedStockFromString {
 
@@ -24,5 +25,16 @@ public interface CreatedStockFromString {
             stock = new Stock(stockConstr[0], c, MAX, MIN);
         }
         return stock;
+    }
+
+    default String[] replaceToDot(String[] stockConstr) {
+        for (int i = 1; i < stockConstr.length; i++) {
+            try {
+                stockConstr[i] = stockConstr[i].replace(",", ".");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number format in line: " + Arrays.toString(stockConstr));
+            }
+        }
+        return stockConstr;
     }
 }

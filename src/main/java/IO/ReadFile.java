@@ -22,16 +22,8 @@ public class ReadFile implements CreatedStockFromString {
                     System.out.println("This line don't have Stock: " + line);
                     continue; // Skip this line and continue with the next
                 }
-                for (int i = 1; i < stockConstr.length; i++) {
-                    try {
-                        stockConstr[i] = stockConstr[i].replace(",", ".");
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid number format in line: " + line);
-                        // Можно добавить логирование или другие действия по необходимости
-                    }
-                }
                 try {
-                    Stock stock = createStockFromString(stockConstr);
+                    Stock stock = createStockFromString(replaceToDot(stockConstr));
                     if (stock != null) {
                         stockList.add(stock);
                     }
