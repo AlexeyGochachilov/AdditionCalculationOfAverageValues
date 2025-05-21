@@ -10,8 +10,8 @@ public interface CreatedStockFromString {
     default Stock createStockFromString(String[] stockConstr) {
 
         BigDecimal a, b, c, MAX, MIN;
-
         Stock stock = null;
+
         a = new BigDecimal(stockConstr[1]);
         b = new BigDecimal(stockConstr[2]);
         c = new BigDecimal(stockConstr[3]);
