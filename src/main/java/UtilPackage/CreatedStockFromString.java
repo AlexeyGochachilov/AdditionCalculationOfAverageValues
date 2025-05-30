@@ -20,8 +20,10 @@ public interface CreatedStockFromString {
         if (a.compareTo(MAX) < 0 && a.compareTo(MIN) > 0) {
             stock = new Stock(stockConstr[0], a, MAX, MIN);
         } else if (b.compareTo(MAX) < 0 && b.compareTo(MIN) > 0) {
+            System.out.println("Возможно в акции " + stockConstr[0] + " не верно указано значение 52 W High");
             stock = new Stock(stockConstr[0], b, MAX, MIN);
         } else if (c.compareTo(MAX) < 0 && c.compareTo(MIN) > 0) {
+            System.out.println("Возможно в акции " + stockConstr[0] + " не верно указано значение 52 W Low");
             stock = new Stock(stockConstr[0], c, MAX, MIN);
         }
         return stock;
