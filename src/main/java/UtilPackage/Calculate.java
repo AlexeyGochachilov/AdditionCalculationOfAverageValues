@@ -13,6 +13,7 @@ public class Calculate {
     private int countNormalDeal = 0;
     private BigDecimal MAXValue = null;
     private BigDecimal MINValue = null;
+    private BigDecimal novValue = null;
 
     public StringBuilder getInfoGoodDeal() {
         return infoGoodDeal;
@@ -34,6 +35,13 @@ public class Calculate {
         return stringBuilder;
     }
 
+    private BigDecimal nowPercent() {
+    BigDecimal result = MAXValue.subtract(MINValue);
+    BigDecimal nowResult = novValue.subtract(MINValue);
+    BigDecimal hundred = new BigDecimal("100");
+        return nowResult.multiply(hundred).divide(result, 2, java.math.RoundingMode.HALF_UP);
+    }
+
     private BigDecimal percent(String s) {
         BigDecimal result = MAXValue.subtract(MINValue);
         return result.multiply(new BigDecimal(s)).add(MINValue);
@@ -44,7 +52,7 @@ public class Calculate {
         StringBuilder sb = new StringBuilder(stock.getName()).append("\n");
         String companyName = stock.getName();
 
-        BigDecimal novValue = stock.getNowValue();
+        novValue = stock.getNowValue();
         MAXValue = stock.getMaxValue();
         MINValue = stock.getMinValue();
 
@@ -52,7 +60,7 @@ public class Calculate {
         BigDecimal quarterResult = percent("0.25");
         BigDecimal threeEighthsResult = percent("0.375");
 
-        String stringNowValue = "--> Nov   = " + novValue;
+        String stringNowValue = "--> Nov   = " + novValue + " (" + nowPercent() + "%)";
         String stringMAXValue = "52 w High = " + MAXValue;
         String stringMINValue = "52 w Low  = " + MINValue;
         String fiftyPercent = "50%       = " + halfResult;
