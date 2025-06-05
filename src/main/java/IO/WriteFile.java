@@ -1,13 +1,12 @@
 package IO;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class WriteFile {
 
     public void writeToFile(String filePath, String content) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+        try (BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(filePath, true), "UTF-8"))) {
             writer.write(content);
             System.out.println("Data saved to path: " + filePath);
         } catch (IOException e) {
