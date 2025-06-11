@@ -68,10 +68,13 @@ public class Calculate {
         String threeEighthsPercent = "37.5%     = " + threeEighthsResult;
 
         sb.append(stringMAXValue).append("\n");
+
         if (novValue.compareTo(halfResult) >= 0) {
             sb.append(stringNowValue).append(" не выгодная сделка").append("\n");
         }
+
         sb.append(fiftyPercent).append("\n");
+
         if (novValue.compareTo(halfResult) < 0 && novValue.compareTo(quarterResult) >= 0) {
             if (novValue.compareTo(threeEighthsResult) > 0) {
                 sb.append(stringNowValue).append(" не очень выгодная сделка").append("\n");
@@ -83,15 +86,17 @@ public class Calculate {
             infoNormalDeal.append(companyName).append(" ");
             countNormalDeal++;
         }
+
         sb.append(twentyFivePercent).append("\n");
+
         if (novValue.compareTo(quarterResult) < 0) {
             sb.append(stringNowValue).append(" очень выгодная сделка").append("\n");
             infoGoodDeal.append(companyName).append(" ");
             countGoodDeal++;
         }
+
         sb.append(stringMINValue).append("\n");
         stringBuilder = sb.toString();
-        System.out.println(stringBuilder);
     }
 
 }

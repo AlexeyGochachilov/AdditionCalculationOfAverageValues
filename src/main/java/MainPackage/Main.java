@@ -24,7 +24,7 @@ public class Main {
         String dateString = formatter.format(date);
 
         Path pathOut = Path.of("D:\\market_info\\info_" + dateString + ".txt");
-        Path pathIn = Path.of("D:\\NEW_JAVA\\AdditionCalculationOfAverageValues\\StocksInfo.txt");
+        Path pathIn = Path.of("src/main/resources/StocksInfo.txt");
         Iterator<Stock> stockIterator = readFile.creatingListFromFile(pathIn.toString()).iterator();
 
         System.out.println("Starting the program...");
@@ -33,15 +33,14 @@ public class Main {
             calc.calculateAverageValues(stockIterator.next());
             sb.append(calc.getStringBuilder());
         }
-
-        System.out.println("Exiting the program.");
-
         sb.append(calc.getCountNormalDeal()).append(". Company with normal deal: ")
                 .append(calc.getInfoNormalDeal()).append("\n");
         sb.append(calc.getCountGoodDeal()).append(". Company with good deal: ")
                 .append(calc.getInfoGoodDeal()).append("\n");
 
         writeFile.writeToFile(pathOut.toString(), sb.toString());
+
+        System.out.println("Exiting the program.");
     }
 }
 
