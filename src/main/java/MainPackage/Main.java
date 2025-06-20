@@ -12,6 +12,10 @@ import java.util.Iterator;
 
 public class Main {
 
+    /**
+     * This is the main class of the program that calculates stock values and categorizes them into different deal types.
+     * It reads stock information from a file, processes it, and writes the results to an output file.
+     */
     public static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
@@ -33,6 +37,10 @@ public class Main {
             calc.calculateAverageValues(stockIterator.next());
             sb.append(calc.getStringBuilder());
         }
+        sb.append(calc.getCountBadDeal()).append(". Company with bad deal: ")
+                .append(calc.getInfoBadDeal()).append("\n");
+        sb.append(calc.getCountNotGoodDeal()).append(". Company with not good deal: ")
+                .append(calc.getInfoNotGoodDeal()).append("\n");
         sb.append(calc.getCountNormalDeal()).append(". Company with normal deal: ")
                 .append(calc.getInfoNormalDeal()).append("\n");
         sb.append(calc.getCountGoodDeal()).append(". Company with good deal: ")

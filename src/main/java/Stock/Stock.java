@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 
 public class Stock {
 
+    /**
+     * This class represents a stock with its name, current value, maximum value, and minimum value.
+     * It provides methods to access these properties.
+     */
     private String name;
     private BigDecimal nowValue;
     private BigDecimal maxValue;

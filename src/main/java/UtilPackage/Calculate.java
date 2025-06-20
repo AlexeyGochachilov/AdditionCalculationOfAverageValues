@@ -6,6 +6,11 @@ import java.math.BigDecimal;
 
 public class Calculate {
 
+    /**
+     * This class is used to calculate the average values of stocks and categorize them
+     * into different deal types based on their current value compared to their max and min values.
+     */
+
     private static String stringBuilder;
     private static StringBuilder infoGoodDeal = new StringBuilder();
     private static StringBuilder infoBadDeal = new StringBuilder();
@@ -19,12 +24,12 @@ public class Calculate {
     private BigDecimal MINValue = null;
     private BigDecimal novValue = null;
 
-    public static StringBuilder getInfoBadDeal() {
-        return infoBadDeal;
+    public  String getInfoBadDeal() {
+        return infoBadDeal.toString();
     }
 
-    public static StringBuilder getInfoNotGoodDeal() {
-        return infoNotGoodDeal;
+    public  String getInfoNotGoodDeal() {
+        return infoNotGoodDeal.toString();
     }
 
     public int getCountNotGoodDeal() {
@@ -35,12 +40,12 @@ public class Calculate {
         return countBadDeal;
     }
 
-    public StringBuilder getInfoGoodDeal() {
-        return infoGoodDeal;
+    public String getInfoGoodDeal() {
+        return infoGoodDeal.toString();
     }
 
-    public StringBuilder getInfoNormalDeal() {
-        return infoNormalDeal;
+    public String getInfoNormalDeal() {
+        return infoNormalDeal.toString();
     }
 
     public int getCountGoodDeal() {
@@ -55,6 +60,10 @@ public class Calculate {
         return stringBuilder;
     }
 
+    /**
+     * This method calculates the percentage of the current stock value relative to its max and min values.
+     * It returns a BigDecimal representing the percentage.
+     */
     private BigDecimal nowPercent() {
         BigDecimal result = MAXValue.subtract(MINValue);
         BigDecimal nowResult = novValue.subtract(MINValue);
@@ -62,11 +71,19 @@ public class Calculate {
         return nowResult.multiply(hundred).divide(result, 2, java.math.RoundingMode.HALF_UP);
     }
 
+    /**
+     * This method calculates a value based on a percentage string input.
+     * It returns a BigDecimal representing the calculated value.
+     */
     private BigDecimal percent(String s) {
         BigDecimal result = MAXValue.subtract(MINValue);
         return result.multiply(new BigDecimal(s)).add(MINValue);
     }
 
+    /**
+     * This method calculates the average values of a stock and categorizes it into different deal types.
+     * It updates the stringBuilder with the results and categorizes the stock based on its current value.
+     */
     public void calculateAverageValues(Stock stock) {
 
         StringBuilder sb = new StringBuilder(stock.getName()).append("\n");
@@ -104,7 +121,7 @@ public class Calculate {
             infoNormalDeal.append(companyName).append(" ");
             countNormalDeal++;
 
-        } else  {
+        } else {
 
             sb.append(stringNowValue).append(" очень выгодная сделка").append("\n");
             infoGoodDeal.append(companyName).append(" ");
