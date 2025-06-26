@@ -49,7 +49,6 @@ public class Main {
                 .append(calc.getInfoGoodDeal()).append("\n");
 
         writeFile.writeToFile(pathOut.toString(), sb.toString());
-
         openFile(pathOut);
 
         System.out.println("Exiting the program.");
