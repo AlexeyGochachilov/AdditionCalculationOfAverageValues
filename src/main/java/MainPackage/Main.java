@@ -1,6 +1,6 @@
 package MainPackage;
 
-import UtilPackage.Calculate;
+import UtilPackage.*;
 import IO.ReadFile;
 import IO.WriteFile;
 import Stock.Stock;
@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+
+import static UtilPackage.OpenFile.openFile;
 
 public class Main {
 
@@ -47,6 +49,8 @@ public class Main {
                 .append(calc.getInfoGoodDeal()).append("\n");
 
         writeFile.writeToFile(pathOut.toString(), sb.toString());
+
+        openFile(pathOut);
 
         System.out.println("Exiting the program.");
     }
