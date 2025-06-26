@@ -1,38 +1,22 @@
 package Stock;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.math.BigDecimal;
 
+@Data
+@AllArgsConstructor
 public class Stock {
 
     /**
      * This class represents a stock with its name, current value, maximum value, and minimum value.
      * It provides methods to access these properties.
      */
-    private String name;
-    private BigDecimal nowValue;
-    private BigDecimal maxValue;
-    private BigDecimal minValue;
+    private final String name;
+    private final BigDecimal nowValue;
+    private final BigDecimal maxValue;
+    private final BigDecimal minValue;
 
-    public String getName() {
-        return name;
-    }
 
-    public BigDecimal getNowValue() {
-        return nowValue;
-    }
-
-    public BigDecimal getMaxValue() {
-        return maxValue;
-    }
-
-    public BigDecimal getMinValue() {
-        return minValue;
-    }
-
-    public Stock(String name, BigDecimal nowValue, BigDecimal maxValue, BigDecimal minValue) {
-        this.name = name;
-        this.nowValue = nowValue;
-        this.maxValue = maxValue;
-        this.minValue = minValue;
-    }
 }
