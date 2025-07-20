@@ -25,14 +25,21 @@ public interface CreatedStockFromString {
         c = new BigDecimal(stockConstr[3]);
         MAX = a.max(b).max(c);
         MIN = a.min(b).min(c);
+
         if (a.compareTo(MAX) < 0 && a.compareTo(MIN) > 0) {
             stock = new Stock(stockConstr[0], a, MAX, MIN);
         } else if (b.compareTo(MAX) < 0 && b.compareTo(MIN) > 0) {
             System.out.println("Возможно в акции " + stockConstr[0] + " не верно указано значение 52 W High");
             stock = new Stock(stockConstr[0], b, MAX, MIN);
-        } else if (c.compareTo(MAX) < 0 && c.compareTo(MIN) > 0) {
+        } else {
             System.out.println("Возможно в акции " + stockConstr[0] + " не верно указано значение 52 W Low");
             stock = new Stock(stockConstr[0], c, MAX, MIN);
+        }
+
+        if (stockConstr.length == 7) {
+            stock.setPE(new BigDecimal(stockConstr[4].substring(2)));
+            stock.setEPS(new BigDecimal(stockConstr[5].substring(3)));
+            stock.setEpsFrom5Years(new BigDecimal(stockConstr[6]));
         }
         return stock;
     }

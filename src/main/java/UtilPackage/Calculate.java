@@ -23,12 +23,13 @@ public class Calculate {
     private BigDecimal MAXValue = null;
     private BigDecimal MINValue = null;
     private BigDecimal novValue = null;
+    private BigDecimal novValueCounting = null;
 
-    public  String getInfoBadDeal() {
+    public String getInfoBadDeal() {
         return infoBadDeal.toString();
     }
 
-    public  String getInfoNotGoodDeal() {
+    public String getInfoNotGoodDeal() {
         return infoNotGoodDeal.toString();
     }
 
@@ -68,7 +69,7 @@ public class Calculate {
         BigDecimal result = MAXValue.subtract(MINValue);
         BigDecimal nowResult = novValue.subtract(MINValue);
         BigDecimal hundred = new BigDecimal("100");
-        return nowResult.multiply(hundred).divide(result, 2, java.math.RoundingMode.HALF_UP);
+        return nowResult.multiply(hundred).divide(result, 4, java.math.RoundingMode.HALF_UP);
     }
 
     /**
@@ -89,9 +90,20 @@ public class Calculate {
         StringBuilder sb = new StringBuilder(stock.getName()).append("\n");
         String companyName = stock.getName();
 
-        novValue = stock.getNowValue();
         MAXValue = stock.getMaxValue();
         MINValue = stock.getMinValue();
+        novValue = stock.getNowValue();
+
+        String stringNovValueCounting = "";
+        if (stock.getPE() != null) {
+            if (stock.getPE().doubleValue() > 5 && stock.getPE().doubleValue() < 15) {
+                double sum1 = stock.getEPS().doubleValue() *
+                        (15 + 2 * (stock.getEpsFrom5Years().doubleValue() * 0.6)) * 4.4 / 12;
+                novValueCounting = new BigDecimal(sum1).setScale(4, java.math.RoundingMode.HALF_UP);
+                stringNovValueCounting = " novValueCounting = " + novValueCounting + "\n";
+            }
+        }
+
 
         BigDecimal halfResult = percent("0.5");
         BigDecimal quarterResult = percent("0.25");
@@ -105,25 +117,29 @@ public class Calculate {
 
         if (novValue.compareTo(halfResult) >= 0) {
 
-            sb.append(stringNowValue).append(" не выгодная сделка").append("\n");
+            sb.append(stringNowValue).append(" не выгодная сделка").append("\n")
+                    .append(stringNovValueCounting);
             infoBadDeal.append(companyName).append(" ");
             countBadDeal++;
 
         } else if (novValue.compareTo(halfResult) < 0 && novValue.compareTo(threeEighthsResult) >= 0) {
 
-            sb.append(stringNowValue).append(" не очень выгодная сделка").append("\n");
+            sb.append(stringNowValue).append(" не очень выгодная сделка").append("\n")
+                    .append(stringNovValueCounting);
             infoNotGoodDeal.append(companyName).append(" ");
             countNotGoodDeal++;
 
         } else if (novValue.compareTo(threeEighthsResult) < 0 && novValue.compareTo(quarterResult) >= 0) {
 
-            sb.append(stringNowValue).append(" нормальная сделка").append("\n");
+            sb.append(stringNowValue).append(" нормальная сделка").append("\n")
+                    .append(stringNovValueCounting);
             infoNormalDeal.append(companyName).append(" ");
             countNormalDeal++;
 
         } else {
 
-            sb.append(stringNowValue).append(" очень выгодная сделка").append("\n");
+            sb.append(stringNowValue).append(" очень выгодная сделка").append("\n")
+                    .append(stringNovValueCounting);
             infoGoodDeal.append(companyName).append(" ");
             countGoodDeal++;
 

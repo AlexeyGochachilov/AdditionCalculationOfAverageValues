@@ -1,12 +1,10 @@
 package Stock;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-@AllArgsConstructor
 public class Stock {
 
     /**
@@ -17,6 +15,23 @@ public class Stock {
     private final BigDecimal nowValue;
     private final BigDecimal maxValue;
     private final BigDecimal minValue;
+    private BigDecimal PE;
+    private BigDecimal EPS;
+    private BigDecimal epsFrom5Years;
 
+    public Stock(String name, BigDecimal nowValue, BigDecimal maxValue, BigDecimal minValue) {
+        this.name = name;
+        this.nowValue = nowValue;
+        this.maxValue = maxValue;
+        this.minValue = minValue;
+    }
 
+    public Stock(String name, BigDecimal nowValue, BigDecimal maxValue, BigDecimal minValue, BigDecimal PE, BigDecimal EPS) {
+        this.name = name;
+        this.nowValue = nowValue;
+        this.maxValue = maxValue;
+        this.minValue = minValue;
+        this.PE = PE;
+        this.EPS = EPS;
+    }
 }

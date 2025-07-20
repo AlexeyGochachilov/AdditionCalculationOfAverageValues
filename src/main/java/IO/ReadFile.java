@@ -26,7 +26,7 @@ public class ReadFile implements CreatedStockFromString {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] stockConstr = line.trim().split(" ");
-                if (stockConstr.length != 4) {
+                if (stockConstr.length != 4 && stockConstr.length != 7) {
                     System.out.println("This line don't have Stock: " + line);
                     continue; // Skip this line and continue with the next
                 }
