@@ -100,7 +100,7 @@ public class Calculate {
                 double sum1 = stock.getEPS().doubleValue() *
                         (15 + 2 * (stock.getEpsFrom5Years().doubleValue() * 0.6)) * 4.4 / 12;
                 novValueCounting = new BigDecimal(sum1).setScale(4, java.math.RoundingMode.HALF_UP);
-                stringNovValueCounting = " novValueCounting = " + novValueCounting + "\n";
+                stringNovValueCounting = "novValueCounting with Benjamin Graham = " + novValueCounting + "\n";
             }
         }
 
