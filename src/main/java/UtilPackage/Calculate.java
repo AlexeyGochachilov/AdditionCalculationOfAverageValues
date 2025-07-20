@@ -16,10 +16,12 @@ public class Calculate {
     private static StringBuilder infoBadDeal = new StringBuilder();
     private static StringBuilder infoNotGoodDeal = new StringBuilder();
     private static StringBuilder infoNormalDeal = new StringBuilder();
+    private static StringBuilder infoGrahamGodDeal = new StringBuilder();
     private int countGoodDeal = 0;
     private int countNotGoodDeal = 0;
     private int countBadDeal = 0;
     private int countNormalDeal = 0;
+    private int countGrahamGodDeal = 0;
     private BigDecimal MAXValue = null;
     private BigDecimal MINValue = null;
     private BigDecimal novValue = null;
@@ -33,14 +35,6 @@ public class Calculate {
         return infoNotGoodDeal.toString();
     }
 
-    public int getCountNotGoodDeal() {
-        return countNotGoodDeal;
-    }
-
-    public int getCountBadDeal() {
-        return countBadDeal;
-    }
-
     public String getInfoGoodDeal() {
         return infoGoodDeal.toString();
     }
@@ -49,12 +43,28 @@ public class Calculate {
         return infoNormalDeal.toString();
     }
 
+    public String getInfoGrahamGodDeal() {
+        return infoGrahamGodDeal.toString();
+    }
+
+    public int getCountNotGoodDeal() {
+        return countNotGoodDeal;
+    }
+
+    public int getCountBadDeal() {
+        return countBadDeal;
+    }
+
     public int getCountGoodDeal() {
         return countGoodDeal;
     }
 
     public int getCountNormalDeal() {
         return countNormalDeal;
+    }
+
+    public int getCountGrahamGodDeal() {
+        return countGrahamGodDeal;
     }
 
     public String getStringBuilder() {
@@ -101,6 +111,13 @@ public class Calculate {
                         (15 + 2 * (stock.getEpsFrom5Years().doubleValue() * 0.6)) * 4.4 / 12;
                 novValueCounting = new BigDecimal(sum1).setScale(4, java.math.RoundingMode.HALF_UP);
                 stringNovValueCounting = "novValueCounting with Benjamin Graham = " + novValueCounting + "\n";
+
+                if (novValue.compareTo(novValueCounting) < 0) {
+
+                    infoGrahamGodDeal.append(companyName).append(" ");
+                    countGrahamGodDeal++;
+                }
+
             }
         }
 

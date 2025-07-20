@@ -37,16 +37,20 @@ public class Main {
 
         while (stockIterator.hasNext()) {
             calc.calculateAverageValues(stockIterator.next());
-            sb.append(calc.getStringBuilder());
+            sb.append(calc.getStringBuilder()).append("\n");
         }
         sb.append(calc.getCountBadDeal()).append(". Company with bad deal: ")
-                .append(calc.getInfoBadDeal()).append("\n");
+                .append(calc.getInfoBadDeal()).append("\n\n");
         sb.append(calc.getCountNotGoodDeal()).append(". Company with not good deal: ")
-                .append(calc.getInfoNotGoodDeal()).append("\n");
+                .append(calc.getInfoNotGoodDeal()).append("\n\n");
         sb.append(calc.getCountNormalDeal()).append(". Company with normal deal: ")
-                .append(calc.getInfoNormalDeal()).append("\n");
+                .append(calc.getInfoNormalDeal()).append("\n\n");
         sb.append(calc.getCountGoodDeal()).append(". Company with good deal: ")
-                .append(calc.getInfoGoodDeal()).append("\n");
+                .append(calc.getInfoGoodDeal()).append("\n\n");
+        sb.append(calc.getCountGrahamGodDeal()).append(". Company with good deal from Graham: ")
+                .append(calc.getInfoGrahamGodDeal()).append("\n");
+        sb.append("Very good deal: ").append(
+                StringComparator.findCommonWords(calc.getInfoGoodDeal(), calc.getInfoGrahamGodDeal()));
 
         writeFile.writeToFile(pathOut.toString(), sb.toString());
         openFile(pathOut);
