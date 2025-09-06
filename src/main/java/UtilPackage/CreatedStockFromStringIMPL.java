@@ -1,11 +1,12 @@
 package UtilPackage;
 
+import Interfaces.CreatedStockFromString;
 import Stock.Stock;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-public interface CreatedStockFromString {
+public class CreatedStockFromStringIMPL implements CreatedStockFromString {
 
     /**
      * This method creates a Stock object from a string array containing stock information.
@@ -15,7 +16,8 @@ public interface CreatedStockFromString {
      * @param stockConstr An array of strings containing stock information.
      * @return A Stock object or null if the input is invalid.
      */
-    default Stock createStockFromString(String[] stockConstr) {
+    @Override
+    public Stock createStockFromString(String[] stockConstr) {
 
         BigDecimal a, b, c, MAX, MIN;
         Stock stock = null;
@@ -51,7 +53,8 @@ public interface CreatedStockFromString {
      * @param stockConstr An array of strings containing stock information.
      * @return The modified array with commas replaced by dots.
      */
-    default String[] replaceToDot(String[] stockConstr) {
+    @Override
+    public String[] replaceToDot(String[] stockConstr) {
         for (int i = 1; i < stockConstr.length; i++) {
             try {
                 stockConstr[i] = stockConstr[i].replace(",", ".");

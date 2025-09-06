@@ -1,7 +1,9 @@
 package IO;
 
+import Interfaces.ReadFile;
 import Stock.Stock;
-import UtilPackage.CreatedStockFromString;
+import Interfaces.CreatedStockFromString;
+import UtilPackage.CreatedStockFromStringIMPL;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,7 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadFile implements CreatedStockFromString {
+public class ReadFileIMPL implements ReadFile {
+
+    CreatedStockFromString csfs = new CreatedStockFromStringIMPL();
 
     /**
      * This method reads stock data from a file and creates a list of Stock objects.
@@ -19,6 +23,7 @@ public class ReadFile implements CreatedStockFromString {
      * @param filePath The path to the file containing stock data.
      * @return A list of Stock objects created from the file data.
      */
+    @Override
     public List<Stock> creatingListFromFile(String filePath) {
 
         List<Stock> stockList = new ArrayList<>();
@@ -31,7 +36,7 @@ public class ReadFile implements CreatedStockFromString {
                     continue; // Skip this line and continue with the next
                 }
                 try {
-                    Stock stock = createStockFromString(replaceToDot(stockConstr));
+                    Stock stock = csfs.createStockFromString(csfs.replaceToDot(stockConstr));
                     if (stock != null) {
                         stockList.add(stock);
                     }

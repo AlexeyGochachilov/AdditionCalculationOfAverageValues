@@ -1,22 +1,25 @@
 package UtilPackage;
 
+import Interfaces.Calculate;
 import Stock.Stock;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 
-public class Calculate {
+@Getter
+public class CalculateIMPL implements Calculate {
 
     /**
      * This class is used to calculate the average values of stocks and categorize them
      * into different deal types based on their current value compared to their max and min values.
      */
 
-    private static String stringBuilder;
-    private static StringBuilder infoGoodDeal = new StringBuilder();
-    private static StringBuilder infoBadDeal = new StringBuilder();
-    private static StringBuilder infoNotGoodDeal = new StringBuilder();
-    private static StringBuilder infoNormalDeal = new StringBuilder();
-    private static StringBuilder infoGrahamGodDeal = new StringBuilder();
+    private String stringBuilders;
+    private StringBuilder infoGoodDeal = new StringBuilder();
+    private StringBuilder infoBadDeal = new StringBuilder();
+    private StringBuilder infoNotGoodDeal = new StringBuilder();
+    private StringBuilder infoNormalDeal = new StringBuilder();
+    private StringBuilder infoGrahamGodDeal = new StringBuilder();
     private int countGoodDeal = 0;
     private int countNotGoodDeal = 0;
     private int countBadDeal = 0;
@@ -47,30 +50,6 @@ public class Calculate {
         return infoGrahamGodDeal.toString();
     }
 
-    public int getCountNotGoodDeal() {
-        return countNotGoodDeal;
-    }
-
-    public int getCountBadDeal() {
-        return countBadDeal;
-    }
-
-    public int getCountGoodDeal() {
-        return countGoodDeal;
-    }
-
-    public int getCountNormalDeal() {
-        return countNormalDeal;
-    }
-
-    public int getCountGrahamGodDeal() {
-        return countGrahamGodDeal;
-    }
-
-    public String getStringBuilder() {
-        return stringBuilder;
-    }
-
     /**
      * This method calculates the percentage of the current stock value relative to its max and min values.
      * It returns a BigDecimal representing the percentage.
@@ -95,6 +74,7 @@ public class Calculate {
      * This method calculates the average values of a stock and categorizes it into different deal types.
      * It updates the stringBuilder with the results and categorizes the stock based on its current value.
      */
+    @Override
     public void calculateAverageValues(Stock stock) {
 
         StringBuilder sb = new StringBuilder(stock.getName()).append("\n");
@@ -107,8 +87,8 @@ public class Calculate {
         String stringNovValueCounting = "";
         if (stock.getPE() != null) {
             if (stock.getPE().doubleValue() > 5 && stock.getPE().doubleValue() < 15) {
-                double sum1 = stock.getEPS().doubleValue() *
-                        (15 + 2 * (stock.getEpsFrom5Years().doubleValue() * 0.6)) * 4.4 / 12;
+                double sum1 = (stock.getEPS().doubleValue() *
+                        (15 + 2 * (stock.getEpsFrom5Years().doubleValue() * 0.6)) * 4.4) / 12;
                 novValueCounting = new BigDecimal(sum1).setScale(4, java.math.RoundingMode.HALF_UP);
                 stringNovValueCounting = "novValueCounting with Benjamin Graham = " + novValueCounting + "\n";
 
@@ -120,7 +100,6 @@ public class Calculate {
 
             }
         }
-
 
         BigDecimal halfResult = percent("0.5");
         BigDecimal quarterResult = percent("0.25");
@@ -163,6 +142,6 @@ public class Calculate {
         }
 
         sb.append(stringMINValue).append("\n");
-        stringBuilder = sb.toString();
+        stringBuilders = sb.toString();
     }
 }

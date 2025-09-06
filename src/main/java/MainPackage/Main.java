@@ -1,8 +1,10 @@
 package MainPackage;
 
+import Interfaces.ReadFile;
+import Interfaces.WriteFile;
 import UtilPackage.*;
-import IO.ReadFile;
-import IO.WriteFile;
+import IO.ReadFileIMPL;
+import IO.WriteFileIMPL;
 import Stock.Stock;
 
 import java.nio.file.Path;
@@ -11,6 +13,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import static UtilPackage.OpenFile.openFile;
+import static UtilPackage.StringComparator.findCommonWords;
 
 public class Main {
 
@@ -22,12 +25,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Calculate calc = new Calculate();
+        CalculateIMPL calc = new CalculateIMPL();
+        ReadFile readFile = new ReadFileIMPL();
+        WriteFile writeFile = new WriteFileIMPL();
         Date date = new Date();
-        ReadFile readFile = new ReadFile();
-        WriteFile writeFile = new WriteFile();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
         String dateString = formatter.format(date);
+        String veryGodDeal;
 
         Path pathOut = Path.of("D:\\market_info\\info_" + dateString + ".txt");
         Path pathIn = Path.of("src/main/resources/StocksInfo.txt");
@@ -37,8 +41,12 @@ public class Main {
 
         while (stockIterator.hasNext()) {
             calc.calculateAverageValues(stockIterator.next());
-            sb.append(calc.getStringBuilder()).append("\n");
+            sb.append(calc.getStringBuilders()).append("\n");
         }
+        if (findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal()).split("\\s+").length < 3) {
+            veryGodDeal = findCommonWords(calc.getInfoGrahamGodDeal(),calc.getInfoGoodDeal(), calc.getInfoNormalDeal());
+        } else veryGodDeal = findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal());
+
         sb.append(calc.getCountBadDeal()).append(". Company with bad deal: ")
                 .append(calc.getInfoBadDeal()).append("\n");
         sb.append(calc.getCountNotGoodDeal()).append(". Company with not good deal: ")
@@ -49,8 +57,7 @@ public class Main {
                 .append(calc.getInfoGoodDeal()).append("\n");
         sb.append(calc.getCountGrahamGodDeal()).append(". Company with good deal from Graham: ")
                 .append(calc.getInfoGrahamGodDeal()).append("\n\n");
-        sb.append("Very good deal: ").append(
-                StringComparator.findCommonWords(calc.getInfoGoodDeal(), calc.getInfoGrahamGodDeal()));
+        sb.append("Very good deal: ").append(veryGodDeal);
 
         writeFile.writeToFile(pathOut.toString(), sb.toString());
         openFile(pathOut);

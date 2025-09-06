@@ -26,12 +26,4 @@ public class Stock {
         this.minValue = minValue;
     }
 
-    public Stock(String name, BigDecimal nowValue, BigDecimal maxValue, BigDecimal minValue, BigDecimal PE, BigDecimal EPS) {
-        this.name = name;
-        this.nowValue = nowValue;
-        this.maxValue = maxValue;
-        this.minValue = minValue;
-        this.PE = PE;
-        this.EPS = EPS;
-    }
 }
