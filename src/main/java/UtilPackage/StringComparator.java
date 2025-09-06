@@ -35,7 +35,7 @@ public class StringComparator {
         // Создаем HashSet для быстрого поиска слов из второй строки
         Set<String> wordSet1 = new HashSet<>(Arrays.asList(words2));
 
-        // Создаем HashSet для быстрого поиска слов из второй строки
+        // Создаем HashSet для быстрого поиска слов из третьей строки
         Set<String> wordSet2 = new HashSet<>(Arrays.asList(words3));
 
         // Используем LinkedHashSet для сохранения порядка и уникальности
