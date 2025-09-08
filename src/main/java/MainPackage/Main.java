@@ -42,8 +42,8 @@ public class Main {
             sb.append(calc.getStringBuilders()).append("\n");
         }
         if (findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal()).split("\\s+").length < 3) {
-            veryGodDeal = findCommonWords(calc.getInfoGrahamGodDeal(),calc.getInfoGoodDeal(), calc.getInfoNormalDeal());
-        } else veryGodDeal = findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal());
+            veryGodDeal = "before 0.375% " + findCommonWords(calc.getInfoGrahamGodDeal(),calc.getInfoGoodDeal(), calc.getInfoNormalDeal());
+        } else veryGodDeal = "before 0.25% " + findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal());
 
         sb.append(calc.getCountBadDeal()).append(". Company with bad deal: ")
                 .append(calc.getInfoBadDeal()).append("\n");
