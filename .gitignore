@@ -36,3 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### from project ###
+src.resource.StocksInfo.txt
