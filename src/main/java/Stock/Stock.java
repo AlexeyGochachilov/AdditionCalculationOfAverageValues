@@ -28,7 +28,10 @@ public class Stock {
 
     @Override
     public String toString() {
-        return name + "\t" + maxValue + "\t" + nowValue + "\t" + minValue;
+        return name + "\t"
+                + "maxValue = " + maxValue + "\t"
+                + "nowValue = " + nowValue + "\t"
+                + "minValue = " + minValue;
     }
 
 }
