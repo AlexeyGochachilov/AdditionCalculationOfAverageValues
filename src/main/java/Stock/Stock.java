@@ -26,4 +26,9 @@ public class Stock {
         this.minValue = minValue;
     }
 
+    @Override
+    public String toString() {
+        return name + "\t" + maxValue + "\t" + nowValue + "\t" + minValue;
+    }
+
 }
