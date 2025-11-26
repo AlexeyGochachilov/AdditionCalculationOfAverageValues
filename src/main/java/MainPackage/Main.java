@@ -1,8 +1,8 @@
 package MainPackage;
 
+import CalculateAPP.*;
 import Interfaces.ReadFile;
 import Interfaces.WriteFile;
-import UtilPackage.*;
 import IO.*;
 import Stock.Stock;
 
@@ -23,7 +23,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        CalculateIMPL calc = new CalculateIMPL();
+        Calculate calc = new CalculateIMPL();
         ReadFile readFile = new ReadFileIMPL();
         WriteFile writeFile = new WriteFileIMPL();
         Date date = new Date();
@@ -43,7 +43,8 @@ public class Main {
                 sb.append(calc.getStringBuilders()).append("\n");
             }
             if (findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal()).split("\\s+").length < 3) {
-                veryGodDeal = "before 0.375% " + findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal(), calc.getInfoNormalDeal());
+                veryGodDeal = "before 0.375% " +
+                        findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal(), calc.getInfoNormalDeal());
             } else veryGodDeal = "before 0.25% " + findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal());
 
             sb.append(calc.getCountBadDeal()).append(". Company with bad deal: ")

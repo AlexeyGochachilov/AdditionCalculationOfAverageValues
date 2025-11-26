@@ -1,60 +1,18 @@
-package UtilPackage;
+package CalculateAPP;
 
-import Interfaces.Calculate;
 import Stock.Stock;
 import lombok.Getter;
 
 import java.math.BigDecimal;
 
 @Getter
-public class CalculateIMPL implements Calculate {
-
-    /**
-     * This class is used to calculate the average values of stocks and categorize them
-     * into different deal types based on their current value compared to their max and min values.
-     */
-
-    private String stringBuilders;
-    private StringBuilder infoGoodDeal = new StringBuilder();
-    private StringBuilder infoBadDeal = new StringBuilder();
-    private StringBuilder infoNotGoodDeal = new StringBuilder();
-    private StringBuilder infoNormalDeal = new StringBuilder();
-    private StringBuilder infoGrahamGodDeal = new StringBuilder();
-    private int countGoodDeal = 0;
-    private int countNotGoodDeal = 0;
-    private int countBadDeal = 0;
-    private int countNormalDeal = 0;
-    private int countGrahamGodDeal = 0;
-    private BigDecimal MAXValue = null;
-    private BigDecimal MINValue = null;
-    private BigDecimal novValue = null;
-    private BigDecimal novValueCounting = null;
-
-    public String getInfoBadDeal() {
-        return infoBadDeal.toString();
-    }
-
-    public String getInfoNotGoodDeal() {
-        return infoNotGoodDeal.toString();
-    }
-
-    public String getInfoGoodDeal() {
-        return infoGoodDeal.toString();
-    }
-
-    public String getInfoNormalDeal() {
-        return infoNormalDeal.toString();
-    }
-
-    public String getInfoGrahamGodDeal() {
-        return infoGrahamGodDeal.toString();
-    }
+public class CalculateIMPL extends Calculate {
 
     /**
      * This method calculates the percentage of the current stock value relative to its max and min values.
      * It returns a BigDecimal representing the percentage.
      */
-    private BigDecimal nowPercent() {
+    public BigDecimal nowPercent() {
         BigDecimal result = MAXValue.subtract(MINValue);
         BigDecimal nowResult = novValue.subtract(MINValue);
         BigDecimal hundred = new BigDecimal("100");
@@ -65,7 +23,7 @@ public class CalculateIMPL implements Calculate {
      * This method calculates a value based on a percentage string input.
      * It returns a BigDecimal representing the calculated value.
      */
-    private BigDecimal percent(String s) {
+    public BigDecimal percent(String s) {
         BigDecimal result = MAXValue.subtract(MINValue);
         return result.multiply(new BigDecimal(s)).add(MINValue);
     }
@@ -74,7 +32,7 @@ public class CalculateIMPL implements Calculate {
      * This method calculates the average values of a stock and categorizes it into different deal types.
      * It updates the stringBuilder with the results and categorizes the stock based on its current value.
      */
-    @Override
+
     public void calculateAverageValues(Stock stock) {
 
         StringBuilder sb = new StringBuilder(stock.getName()).append("\n");
@@ -113,28 +71,28 @@ public class CalculateIMPL implements Calculate {
 
         if (novValue.compareTo(halfResult) >= 0) {
 
-            sb.append(stringNowValue).append(" не выгодная сделка").append("\n")
+            sb.append(stringNowValue).append(" цена акции выше 50% от годового изменения").append("\n")
                     .append(stringNovValueCounting);
             infoBadDeal.append(companyName).append(" ");
             countBadDeal++;
 
         } else if (novValue.compareTo(halfResult) < 0 && novValue.compareTo(threeEighthsResult) >= 0) {
 
-            sb.append(stringNowValue).append(" не очень выгодная сделка").append("\n")
+            sb.append(stringNowValue).append(" цена акции выше 37,5%, но ниже 50% от годового изменения").append("\n")
                     .append(stringNovValueCounting);
             infoNotGoodDeal.append(companyName).append(" ");
             countNotGoodDeal++;
 
         } else if (novValue.compareTo(threeEighthsResult) < 0 && novValue.compareTo(quarterResult) >= 0) {
 
-            sb.append(stringNowValue).append(" нормальная сделка").append("\n")
+            sb.append(stringNowValue).append(" цена акции выше 25%, но ниже 37,5% от годового изменения").append("\n")
                     .append(stringNovValueCounting);
             infoNormalDeal.append(companyName).append(" ");
             countNormalDeal++;
 
         } else {
 
-            sb.append(stringNowValue).append(" очень выгодная сделка").append("\n")
+            sb.append(stringNowValue).append(" цена акции ниже 25% от годового изменения").append("\n")
                     .append(stringNovValueCounting);
             infoGoodDeal.append(companyName).append(" ");
             countGoodDeal++;
