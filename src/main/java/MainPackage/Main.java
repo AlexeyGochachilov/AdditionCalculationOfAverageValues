@@ -1,14 +1,11 @@
 package MainPackage;
 
 import CalculateAPP.*;
-import Interfaces.ReadFile;
-import Interfaces.WriteFile;
+import Interfaces.*;
 import IO.*;
 import Stock.Stock;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -29,7 +26,6 @@ public class Main {
     static SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
     static String dateString = formatter.format(date);
     private static BufferedReader br;
-    private final static StringBuilder sb = new StringBuilder();
     static ReadFile readFile = new ReadFileIMPL();
     static Path pathIn = Path.of("src/main/resources/StocksInfo.txt");
     static Path pathOut = AppConfig.getOutputPath(dateString);
@@ -51,42 +47,6 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        String veryGodDeal;
-//        try {
-//            Path pathOut = AppConfig.getOutputPath(dateString);
-//            Path pathIn = Path.of("src/main/resources/StocksInfo.txt");
-//            Iterator<Stock> stockIterator = readFile.creatingListFromFile(pathIn.toString()).iterator();
-//
-//            System.out.println("Starting the program...");
-//
-//            while (stockIterator.hasNext()) {
-//                calc.calculateAverageValues(stockIterator.next());
-//                sb.append(calc.getStringBuilders()).append("\n");
-//            }
-//            if (findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal()).split("\\s+").length < 3) {
-//                veryGodDeal = "before 0.375% " +
-//                        findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal(), calc.getInfoNormalDeal());
-//            } else veryGodDeal = "before 0.25% " + findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal());
-//
-//            sb.append(calc.getCountBadDeal()).append(". Company with bad deal: ")
-//                    .append(calc.getInfoBadDeal()).append("\n");
-//            sb.append(calc.getCountNotGoodDeal()).append(". Company with not good deal: ")
-//                    .append(calc.getInfoNotGoodDeal()).append("\n");
-//            sb.append(calc.getCountNormalDeal()).append(". Company with normal deal: ")
-//                    .append(calc.getInfoNormalDeal()).append("\n");
-//            sb.append(calc.getCountGoodDeal()).append(". Company with good deal: ")
-//                    .append(calc.getInfoGoodDeal()).append("\n");
-//            sb.append(calc.getCountGrahamGodDeal()).append(". Company with good deal from Graham: ")
-//                    .append(calc.getInfoGrahamGodDeal()).append("\n\n");
-//            sb.append("Very good deal: ").append(veryGodDeal);
-
-//            writeFile.writeToFile(pathOut.toString(), sb.toString());
-//            openFile(pathOut);
-//        } catch (Exception e) {
-//            System.err.println("Произошла ошибка: " + e.getMessage());
-//            e.printStackTrace();
-//        }
-
 
         System.out.println("Exiting the program.");
     }
@@ -105,42 +65,39 @@ public class Main {
 
     private static void command(String string) throws IOException {
 
-//        if (createdlist().isEmpty()) {
-//            Iterator<Stock> stockIterator = createdlist().iterator();
-//            while (stockIterator.hasNext()) {
-//                calc.calculateAverageValues(stockIterator.next());
-//            }
-//            printNavigation();
-//        }
-
         switch (string) {
             case "1":
-                for (Stock stock : calc.getAllStockList()) {
+                for (Stock stock : calc.getAllStockSet()) {
                     System.out.println(stock);
                     writeFile.writeToFile(pathOut.toString(), stock.toString());
                 }
                 break;
             case "2":
+                System.out.println(calc.getCountBadDeal());
                 for (Stock stock : calc.getBadDealStockList()) {
                     System.out.println(stock);
                 }
                 break;
             case "3":
+                System.out.println(calc.getCountNotGoodDeal());
                 for (Stock stock : calc.getNotGoodDealStockList()) {
                     System.out.println(stock);
                 }
                 break;
             case "4":
+                System.out.println(calc.getCountNormalDeal());
                 for (Stock stock : calc.getNormalDealStockList()) {
                     System.out.println(stock);
                 }
                 break;
             case "5":
+                System.out.println(calc.getCountGoodDeal());
                 for (Stock stock : calc.getGoodDealStockList()) {
                     System.out.println(stock);
                 }
                 break;
             case "6":
+                System.out.println(calc.getCountGrahamGodDeal());
                 for (Stock stock : calc.getGrahamDealStockList()) {
                     System.out.println(stock);
                 }
@@ -167,10 +124,6 @@ public class Main {
         }
         printNavigation();
         command(br.readLine());
-    }
-
-    private static List<Stock> createdlist() {
-        return readFile.creatingListFromFile(pathIn.toString()).stream().toList();
     }
 }
 
