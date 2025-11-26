@@ -12,9 +12,9 @@ public class CalculateIMPL extends Calculate {
      * This method calculates the percentage of the current stock value relative to its max and min values.
      * It returns a BigDecimal representing the percentage.
      */
-    public BigDecimal nowPercent() {
-        BigDecimal result = MAXValue.subtract(MINValue);
-        BigDecimal nowResult = novValue.subtract(MINValue);
+    public static BigDecimal nowPercent(Stock stock) {
+        BigDecimal result = stock.getMaxValue().subtract(stock.getMinValue());
+        BigDecimal nowResult = stock.getNowValue().subtract(stock.getMinValue());
         BigDecimal hundred = new BigDecimal("100");
         return nowResult.multiply(hundred).divide(result, 4, java.math.RoundingMode.HALF_UP);
     }
@@ -63,7 +63,7 @@ public class CalculateIMPL extends Calculate {
         BigDecimal quarterResult = percent("0.25");
         BigDecimal threeEighthsResult = percent("0.375");
 
-        String stringNowValue = "--> Nov   = " + novValue + " (" + nowPercent() + "%)";
+        String stringNowValue = "--> Nov   = " + novValue + " (" + nowPercent(stock) + "%)";
         String stringMAXValue = "52 w High = " + MAXValue;
         String stringMINValue = "52 w Low  = " + MINValue;
 

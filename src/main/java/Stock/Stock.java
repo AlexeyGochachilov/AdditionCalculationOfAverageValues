@@ -4,6 +4,8 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+import static CalculateAPP.CalculateIMPL.nowPercent;
+
 @Data
 public class Stock {
 
@@ -29,8 +31,8 @@ public class Stock {
     @Override
     public String toString() {
         return name + "\n"
-                + "maxValue = " + maxValue + "\n"
-                + "nowValue = " + nowValue + "\n"
+                + "52 w High = " + maxValue + "\n"
+                + "--> Nov   = " + nowValue + " (" + nowPercent(this) + "%)" + "\n"
                 + "minValue = " + minValue;
     }
 

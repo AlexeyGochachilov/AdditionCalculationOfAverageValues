@@ -19,7 +19,7 @@ public class Main {
      * This is the main class of the program that calculates stock values and categorizes them into different deal types.
      * It reads stock information from a file, processes it, and writes the results to an output file.
      */
-    public static StringBuilder sb = new StringBuilder();
+    private final static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) {
 
@@ -65,6 +65,7 @@ public class Main {
             System.err.println("Произошла ошибка: " + e.getMessage());
             e.printStackTrace();
         }
+
 
         System.out.println("Exiting the program.");
     }
