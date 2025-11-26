@@ -33,7 +33,7 @@ public class Stock {
         return name + "\n"
                 + "52 w High = " + maxValue + "\n"
                 + "--> Nov   = " + nowValue + " (" + nowPercent(this) + "%)" + "\n"
-                + "minValue = " + minValue;
+                + "minValue = " + minValue + "\n";
     }
 
 }

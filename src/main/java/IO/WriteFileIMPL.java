@@ -18,7 +18,7 @@ public class WriteFileIMPL implements WriteFile {
         try (BufferedWriter writer = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(filePath, true), "UTF-8"))) {
             writer.write(content);
-            System.out.println("Data saved to path: " + filePath);
+//            System.out.println("Data saved to path: " + filePath);
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }

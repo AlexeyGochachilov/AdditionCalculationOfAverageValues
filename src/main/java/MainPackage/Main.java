@@ -6,12 +6,15 @@ import Interfaces.WriteFile;
 import IO.*;
 import Stock.Stock;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static IO.OpenFile.openFile;
-import static UtilPackage.StringComparator.findCommonWords;
+import static UtilPackage.ComparatorStock.findSameStock;
 
 public class Main {
 
@@ -19,55 +22,155 @@ public class Main {
      * This is the main class of the program that calculates stock values and categorizes them into different deal types.
      * It reads stock information from a file, processes it, and writes the results to an output file.
      */
+
+    static Calculate calc = new CalculateIMPL();
+    static WriteFile writeFile = new WriteFileIMPL();
+    static Date date = new Date();
+    static SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
+    static String dateString = formatter.format(date);
+    private static BufferedReader br;
     private final static StringBuilder sb = new StringBuilder();
+    static ReadFile readFile = new ReadFileIMPL();
+    static Path pathIn = Path.of("src/main/resources/StocksInfo.txt");
+    static Path pathOut = AppConfig.getOutputPath(dateString);
 
     public static void main(String[] args) {
 
-        Calculate calc = new CalculateIMPL();
-        ReadFile readFile = new ReadFileIMPL();
-        WriteFile writeFile = new WriteFileIMPL();
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yy");
-        String dateString = formatter.format(date);
-        String veryGodDeal;
+        System.out.println("Starting the program...");
+        Iterator<Stock> stockIterator = readFile.creatingListFromFile(pathIn.toString()).iterator();
+        System.out.println();
+        while (stockIterator.hasNext()) {
+            calc.calculateAverageValues(stockIterator.next());
+        }
+        printNavigation();
+        br = new BufferedReader(new InputStreamReader(System.in));
 
         try {
-            Path pathOut = AppConfig.getOutputPath(dateString);
-            Path pathIn = Path.of("src/main/resources/StocksInfo.txt");
-            Iterator<Stock> stockIterator = readFile.creatingListFromFile(pathIn.toString()).iterator();
+            command(br.readLine());
 
-            System.out.println("Starting the program...");
-
-            while (stockIterator.hasNext()) {
-                calc.calculateAverageValues(stockIterator.next());
-                sb.append(calc.getStringBuilders()).append("\n");
-            }
-            if (findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal()).split("\\s+").length < 3) {
-                veryGodDeal = "before 0.375% " +
-                        findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal(), calc.getInfoNormalDeal());
-            } else veryGodDeal = "before 0.25% " + findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal());
-
-            sb.append(calc.getCountBadDeal()).append(". Company with bad deal: ")
-                    .append(calc.getInfoBadDeal()).append("\n");
-            sb.append(calc.getCountNotGoodDeal()).append(". Company with not good deal: ")
-                    .append(calc.getInfoNotGoodDeal()).append("\n");
-            sb.append(calc.getCountNormalDeal()).append(". Company with normal deal: ")
-                    .append(calc.getInfoNormalDeal()).append("\n");
-            sb.append(calc.getCountGoodDeal()).append(". Company with good deal: ")
-                    .append(calc.getInfoGoodDeal()).append("\n");
-            sb.append(calc.getCountGrahamGodDeal()).append(". Company with good deal from Graham: ")
-                    .append(calc.getInfoGrahamGodDeal()).append("\n\n");
-            sb.append("Very good deal: ").append(veryGodDeal);
-
-            writeFile.writeToFile(pathOut.toString(), sb.toString());
-            openFile(pathOut);
-        } catch (Exception e) {
-            System.err.println("Произошла ошибка: " + e.getMessage());
+        } catch (IOException e) {
             e.printStackTrace();
         }
+//        String veryGodDeal;
+//        try {
+//            Path pathOut = AppConfig.getOutputPath(dateString);
+//            Path pathIn = Path.of("src/main/resources/StocksInfo.txt");
+//            Iterator<Stock> stockIterator = readFile.creatingListFromFile(pathIn.toString()).iterator();
+//
+//            System.out.println("Starting the program...");
+//
+//            while (stockIterator.hasNext()) {
+//                calc.calculateAverageValues(stockIterator.next());
+//                sb.append(calc.getStringBuilders()).append("\n");
+//            }
+//            if (findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal()).split("\\s+").length < 3) {
+//                veryGodDeal = "before 0.375% " +
+//                        findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal(), calc.getInfoNormalDeal());
+//            } else veryGodDeal = "before 0.25% " + findCommonWords(calc.getInfoGrahamGodDeal(), calc.getInfoGoodDeal());
+//
+//            sb.append(calc.getCountBadDeal()).append(". Company with bad deal: ")
+//                    .append(calc.getInfoBadDeal()).append("\n");
+//            sb.append(calc.getCountNotGoodDeal()).append(". Company with not good deal: ")
+//                    .append(calc.getInfoNotGoodDeal()).append("\n");
+//            sb.append(calc.getCountNormalDeal()).append(". Company with normal deal: ")
+//                    .append(calc.getInfoNormalDeal()).append("\n");
+//            sb.append(calc.getCountGoodDeal()).append(". Company with good deal: ")
+//                    .append(calc.getInfoGoodDeal()).append("\n");
+//            sb.append(calc.getCountGrahamGodDeal()).append(". Company with good deal from Graham: ")
+//                    .append(calc.getInfoGrahamGodDeal()).append("\n\n");
+//            sb.append("Very good deal: ").append(veryGodDeal);
+
+//            writeFile.writeToFile(pathOut.toString(), sb.toString());
+//            openFile(pathOut);
+//        } catch (Exception e) {
+//            System.err.println("Произошла ошибка: " + e.getMessage());
+//            e.printStackTrace();
+//        }
 
 
         System.out.println("Exiting the program.");
+    }
+
+    private static void printNavigation() {
+        System.out.println("Управление навигацией:");
+        System.out.println("1: посмотреть все акции;");
+        System.out.println("2: посмотреть акции со стоимостью больше 50% от годового изменения цены;");
+        System.out.println("3: посмотреть акции со стоимостью больше 37,5%, но меньше 50% от годового изменения цены;");
+        System.out.println("4: посмотреть акции со стоимостью больше 25%, но меньше 37,5% от годового изменения цены;");
+        System.out.println("5: посмотреть акции со стоимостью меньше 25% от годового изменения цены;");
+        System.out.println("6: посмотреть акции что рекомендует Graham");
+        System.out.println("7: посмотреть акции которые я выбираю в этом году для сделок");
+        System.out.println("выход из программы: EXIT");
+    }
+
+    private static void command(String string) throws IOException {
+
+//        if (createdlist().isEmpty()) {
+//            Iterator<Stock> stockIterator = createdlist().iterator();
+//            while (stockIterator.hasNext()) {
+//                calc.calculateAverageValues(stockIterator.next());
+//            }
+//            printNavigation();
+//        }
+
+        switch (string) {
+            case "1":
+                for (Stock stock : calc.getAllStockList()) {
+                    System.out.println(stock);
+                    writeFile.writeToFile(pathOut.toString(), stock.toString());
+                }
+                break;
+            case "2":
+                for (Stock stock : calc.getBadDealStockList()) {
+                    System.out.println(stock);
+                }
+                break;
+            case "3":
+                for (Stock stock : calc.getNotGoodDealStockList()) {
+                    System.out.println(stock);
+                }
+                break;
+            case "4":
+                for (Stock stock : calc.getNormalDealStockList()) {
+                    System.out.println(stock);
+                }
+                break;
+            case "5":
+                for (Stock stock : calc.getGoodDealStockList()) {
+                    System.out.println(stock);
+                }
+                break;
+            case "6":
+                for (Stock stock : calc.getGrahamDealStockList()) {
+                    System.out.println(stock);
+                }
+                break;
+            case "7":
+                writeFile.writeToFile(pathOut.toString(), "\n" + "то что подходит для моих сделок" + "\n" + "\n");
+                if (findSameStock(calc, calc.getGrahamDealStockList(), calc.getGoodDealStockList()).size() < 3){
+                    for(Stock st : findSameStock(calc, calc.getGrahamDealStockList(), calc.getGoodDealStockList(),
+                            calc.getNormalDealStockList())){
+                        System.out.println(st);
+                        writeFile.writeToFile(pathOut.toString(), st.toString());
+                    }
+                } else for (Stock st : (findSameStock(calc, calc.getGrahamDealStockList(), calc.getGoodDealStockList()))){
+                    System.out.println(st);
+                    writeFile.writeToFile(pathOut.toString(), st.toString());
+                }
+                break;
+            case "EXIT", "exit", "учше", "УЧШЕ":
+                openFile(pathOut);
+                System.exit(1);
+                break;
+            default:
+                System.out.println("ввели не подходящий символ");
+        }
+        printNavigation();
+        command(br.readLine());
+    }
+
+    private static List<Stock> createdlist() {
+        return readFile.creatingListFromFile(pathIn.toString()).stream().toList();
     }
 }
 

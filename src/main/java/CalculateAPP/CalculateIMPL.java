@@ -33,26 +33,27 @@ public class CalculateIMPL extends Calculate {
      * It updates the stringBuilder with the results and categorizes the stock based on its current value.
      */
 
+    @Override
     public void calculateAverageValues(Stock stock) {
 
-        StringBuilder sb = new StringBuilder(stock.getName()).append("\n");
-        String companyName = stock.getName();
+//        StringBuilder sb = new StringBuilder(stock.getName()).append("\n");
+//        String companyName = stock.getName();
 
         MAXValue = stock.getMaxValue();
         MINValue = stock.getMinValue();
         novValue = stock.getNowValue();
 
-        String stringNovValueCounting = "";
+//        String stringNovValueCounting = "";
         if (stock.getPE() != null) {
             if (stock.getPE().doubleValue() > 5 && stock.getPE().doubleValue() < 15) {
                 double sum1 = (stock.getEPS().doubleValue() *
                         (15 + 2 * (stock.getEpsFrom5Years().doubleValue() * 0.6)) * 4.4) / 12;
                 novValueCounting = new BigDecimal(sum1).setScale(4, java.math.RoundingMode.HALF_UP);
-                stringNovValueCounting = "novValueCounting with Benjamin Graham = " + novValueCounting + "\n";
+//                stringNovValueCounting = "novValueCounting with Benjamin Graham = " + novValueCounting + "\n";
 
                 if (novValue.compareTo(novValueCounting) < 0) {
 
-                    infoGrahamGodDeal.append(companyName).append(" ");
+                    grahamDealStockList.add(stock);
                     countGrahamGodDeal++;
                 }
 
@@ -63,43 +64,43 @@ public class CalculateIMPL extends Calculate {
         BigDecimal quarterResult = percent("0.25");
         BigDecimal threeEighthsResult = percent("0.375");
 
-        String stringNowValue = "--> Nov   = " + novValue + " (" + nowPercent(stock) + "%)";
-        String stringMAXValue = "52 w High = " + MAXValue;
-        String stringMINValue = "52 w Low  = " + MINValue;
+//        String stringNowValue = "--> Nov   = " + novValue + " (" + nowPercent(stock) + "%)";
+//        String stringMAXValue = "52 w High = " + MAXValue;
+//        String stringMINValue = "52 w Low  = " + MINValue;
 
-        sb.append(stringMAXValue).append("\n");
+//        sb.append(stringMAXValue).append("\n");
 
         if (novValue.compareTo(halfResult) >= 0) {
 
-            sb.append(stringNowValue).append(" цена акции выше 50% от годового изменения").append("\n")
-                    .append(stringNovValueCounting);
-            infoBadDeal.append(companyName).append(" ");
+//            sb.append(stringNowValue).append(" цена акции выше 50% от годового изменения").append("\n").append(stringNovValueCounting);
+            badDealStockList.add(stock);
             countBadDeal++;
 
         } else if (novValue.compareTo(halfResult) < 0 && novValue.compareTo(threeEighthsResult) >= 0) {
 
-            sb.append(stringNowValue).append(" цена акции выше 37,5%, но ниже 50% от годового изменения").append("\n")
-                    .append(stringNovValueCounting);
-            infoNotGoodDeal.append(companyName).append(" ");
+//            sb.append(stringNowValue).append(" цена акции выше 37,5%, но ниже 50% от годового изменения").append("\n").append(stringNovValueCounting);
+            notGoodDealStockList.add(stock);
             countNotGoodDeal++;
 
         } else if (novValue.compareTo(threeEighthsResult) < 0 && novValue.compareTo(quarterResult) >= 0) {
 
-            sb.append(stringNowValue).append(" цена акции выше 25%, но ниже 37,5% от годового изменения").append("\n")
-                    .append(stringNovValueCounting);
-            infoNormalDeal.append(companyName).append(" ");
+//            sb.append(stringNowValue).append(" цена акции выше 25%, но ниже 37,5% от годового изменения").append("\n").append(stringNovValueCounting);
+            normalDealStockList.add(stock);
             countNormalDeal++;
 
         } else {
 
-            sb.append(stringNowValue).append(" цена акции ниже 25% от годового изменения").append("\n")
-                    .append(stringNovValueCounting);
-            infoGoodDeal.append(companyName).append(" ");
+//            sb.append(stringNowValue).append(" цена акции ниже 25% от годового изменения").append("\n").append(stringNovValueCounting);
+            goodDealStockList.add(stock);
             countGoodDeal++;
 
         }
 
-        sb.append(stringMINValue).append("\n");
-        stringBuilders = sb.toString();
+        allStockList.addAll(badDealStockList);
+        allStockList.addAll(notGoodDealStockList);
+        allStockList.addAll(normalDealStockList);
+        allStockList.addAll(goodDealStockList);
+//        sb.append(stringMINValue).append("\n");
+//        stringBuilders = sb.toString();
     }
 }
