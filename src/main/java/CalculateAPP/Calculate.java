@@ -14,12 +14,12 @@ public abstract class Calculate {
      * into different deal types based on their current value compared to their max and min values.
      */
 
-    protected List<Stock> badDealStockList = new ArrayList<>();
-    protected List<Stock> notGoodDealStockList = new ArrayList<>();
-    protected List<Stock> normalDealStockList = new ArrayList<>();
-    protected List<Stock> goodDealStockList = new ArrayList<>();
-    protected List<Stock> grahamDealStockList = new ArrayList<>();
-    protected Set<Stock> allStockSet = new LinkedHashSet<>();
+    protected List<Stock> badDealStockList = new LinkedList<>();
+    protected List<Stock> notGoodDealStockList = new LinkedList<>();
+    protected List<Stock> normalDealStockList = new LinkedList<>();
+    protected List<Stock> goodDealStockList = new LinkedList<>();
+    protected List<Stock> grahamDealStockList = new LinkedList<>();
+    protected List<Stock> allStockList = new LinkedList<>();
     protected int countGoodDeal = 0;
     protected int countNotGoodDeal = 0;
     protected int countBadDeal = 0;

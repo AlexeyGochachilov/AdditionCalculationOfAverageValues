@@ -72,9 +72,6 @@ public class CalculateIMPL extends Calculate {
             countGoodDeal++;
         }
 
-        allStockSet.addAll(badDealStockList);
-        allStockSet.addAll(notGoodDealStockList);
-        allStockSet.addAll(normalDealStockList);
-        allStockSet.addAll(goodDealStockList);
+        allStockList.add(stock);
     }
 }
