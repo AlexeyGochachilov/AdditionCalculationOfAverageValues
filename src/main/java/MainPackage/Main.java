@@ -61,7 +61,7 @@ public class Main {
         System.out.println("5: посмотреть акции со стоимостью меньше 25% от годового изменения цены;");
         System.out.println("6: посмотреть акции что рекомендует Graham;");
         System.out.println("7.1: посмотреть акции которые я выбираю в этом году для сделок;");
-        System.out.println("7.1: посмотреть акции которые я выбираю в этом году для сделок и записать информацию в файл;");
+        System.out.println("7.2: посмотреть акции которые я выбираю в этом году для сделок и записать информацию в файл;");
         System.out.println("выход из программы: EXIT");
     }
 
@@ -80,35 +80,35 @@ public class Main {
                 }
                 break;
             case "2":
-                System.out.print(calc.getCountBadDeal() + ": ");
+                System.out.print(calc.getCountBadDeal() + " ");
                 System.out.println(endsOfStocks(calc.getCountBadDeal()));
                 for (Stock stock : calc.getBadDealStockList()) {
                     System.out.println(stock);
                 }
                 break;
             case "3":
-                System.out.print(calc.getCountNotGoodDeal() + ": ");
+                System.out.print(calc.getCountNotGoodDeal() + " ");
                 System.out.println(endsOfStocks(calc.getCountNotGoodDeal()));
                 for (Stock stock : calc.getNotGoodDealStockList()) {
                     System.out.println(stock);
                 }
                 break;
             case "4":
-                System.out.print(calc.getCountNormalDeal() + ": ");
+                System.out.print(calc.getCountNormalDeal() + " ");
                 System.out.println(endsOfStocks(calc.getCountNormalDeal()));
                 for (Stock stock : calc.getNormalDealStockList()) {
                     System.out.println(stock);
                 }
                 break;
             case "5":
-                System.out.print(calc.getCountGoodDeal() + ": ");
+                System.out.print(calc.getCountGoodDeal() + " ");
                 System.out.println(endsOfStocks(calc.getCountGoodDeal()));
                 for (Stock stock : calc.getGoodDealStockList()) {
                     System.out.println(stock);
                 }
                 break;
             case "6":
-                System.out.print(calc.getCountGrahamGodDeal() + ": ");
+                System.out.print(calc.getCountGrahamGodDeal() + " ");
                 System.out.println(endsOfStocks(calc.getCountGrahamGodDeal()));
                 for (Stock stock : calc.getGrahamDealStockList()) {
                     System.out.println(stock);
@@ -152,9 +152,9 @@ public class Main {
 
     private static String endsOfStocks(int i) {
         return switch (i) {
-            case 1 -> "акция";
-            case 2, 3, 4 -> "акции";
-            default -> "акций";
+            case 1 -> "акция:";
+            case 2, 3, 4 -> "акции:";
+            default -> "акций:";
         };
     }
 }
