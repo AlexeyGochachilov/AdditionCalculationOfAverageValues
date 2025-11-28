@@ -38,16 +38,14 @@ public class Main {
         while (stockIterator.hasNext()) {
             calc.calculateAverageValues(stockIterator.next());
         }
+
         printNavigation();
         br = new BufferedReader(new InputStreamReader(System.in));
-
         try {
             command(br.readLine());
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         System.out.println("Exiting the program.");
     }
 

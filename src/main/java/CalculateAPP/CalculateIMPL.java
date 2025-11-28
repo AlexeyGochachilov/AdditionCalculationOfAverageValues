@@ -48,6 +48,7 @@ public class CalculateIMPL extends Calculate {
 
                 if (novValue.compareTo(novValueCounting) < 0) {
                     grahamDealStockList.add(stock);
+                    stock.setGrahamPrice(novValueCounting);
                     countGrahamGodDeal++;
                 }
 

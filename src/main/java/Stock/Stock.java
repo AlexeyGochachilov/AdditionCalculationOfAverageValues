@@ -20,6 +20,7 @@ public class Stock {
     private BigDecimal PE;
     private BigDecimal EPS;
     private BigDecimal epsFrom5Years;
+    private BigDecimal grahamPrice;
 
     public Stock(String name, BigDecimal nowValue, BigDecimal maxValue, BigDecimal minValue) {
         this.name = name;
@@ -30,10 +31,17 @@ public class Stock {
 
     @Override
     public String toString() {
-        return name + "\n"
+        if (grahamPrice == null) {
+            return name + "\n"
+                    + "52 w High = " + maxValue + "\n"
+                    + "--> Nov   = " + nowValue + " (" + nowPercent(this) + "%)" + "\n"
+                    + "minValue = " + minValue + "\n";
+        } else  return name + "\n"
                 + "52 w High = " + maxValue + "\n"
                 + "--> Nov   = " + nowValue + " (" + nowPercent(this) + "%)" + "\n"
+                + "grahamPrice = " + grahamPrice + "\n"
                 + "minValue = " + minValue + "\n";
+
     }
 
 }
