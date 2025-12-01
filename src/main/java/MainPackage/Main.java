@@ -60,6 +60,7 @@ public class Main {
         System.out.println("6: посмотреть акции что рекомендует Graham;");
         System.out.println("7.1: посмотреть акции которые я выбираю в этом году для сделок;");
         System.out.println("7.2: посмотреть акции которые я выбираю в этом году для сделок и записать информацию в файл;");
+        System.out.println("выключение программы: OFF");
         System.out.println("выход из программы: EXIT");
     }
 
@@ -136,6 +137,9 @@ public class Main {
                         System.out.println(st);
                         writeFile.writeToFile(pathOut.toString(), st.toString());
                     }
+                break;
+            case "OFF", "off", "щаа", "ЩАА":
+                System.exit(1);
                 break;
             case "EXIT", "exit", "учше", "УЧШЕ":
                 openFile(pathOut);
