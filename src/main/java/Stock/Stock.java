@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
-import static CalculateAPP.CalculateIMPL.nowPercent;
+import static CalculateAPP.Calculate.nowPercent;
 
 @Data
 public class Stock {

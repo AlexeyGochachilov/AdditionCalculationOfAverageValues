@@ -8,22 +8,13 @@ import java.math.BigDecimal;
 @Getter
 public class CalculateIMPL extends Calculate {
 
-    /**
-     * This method calculates the percentage of the current stock value relative to its max and min values.
-     * It returns a BigDecimal representing the percentage.
-     */
-    public static BigDecimal nowPercent(Stock stock) {
-        BigDecimal result = stock.getMaxValue().subtract(stock.getMinValue());
-        BigDecimal nowResult = stock.getNowValue().subtract(stock.getMinValue());
-        BigDecimal hundred = new BigDecimal("100");
-        return nowResult.multiply(hundred).divide(result, 4, java.math.RoundingMode.HALF_UP);
-    }
+
 
     /**
      * This method calculates a value based on a percentage string input.
      * It returns a BigDecimal representing the calculated value.
      */
-    public BigDecimal percent(String s) {
+    private BigDecimal percent(String s) {
         BigDecimal result = MAXValue.subtract(MINValue);
         return result.multiply(new BigDecimal(s)).add(MINValue);
     }
