@@ -1,7 +1,6 @@
 package UtilPackage;
 
-import CalculateAPP.Calculate;
-import Stock.Stock;
+import Security.Stock;
 
 import java.util.*;
 

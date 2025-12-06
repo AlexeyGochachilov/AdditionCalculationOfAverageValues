@@ -1,7 +1,7 @@
 package IO;
 
 import Interfaces.ReadFile;
-import Stock.Stock;
+import Security.Stock;
 import Interfaces.CreatedStockFromString;
 import UtilPackage.CreatedStockFromStringIMPL;
 

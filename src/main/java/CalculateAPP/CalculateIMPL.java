@@ -1,6 +1,6 @@
 package CalculateAPP;
 
-import Stock.Stock;
+import Security.Stock;
 import lombok.Getter;
 
 import java.math.BigDecimal;

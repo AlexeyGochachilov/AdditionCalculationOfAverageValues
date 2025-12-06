@@ -1,7 +1,7 @@
 package UtilPackage;
 
 import Interfaces.CreatedStockFromString;
-import Stock.Stock;
+import Security.Stock;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

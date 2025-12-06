@@ -1,6 +1,6 @@
 package Interfaces;
 
-import Stock.Stock;
+import Security.Stock;
 
 import java.util.List;
 

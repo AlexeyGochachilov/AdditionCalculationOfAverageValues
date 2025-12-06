@@ -3,7 +3,7 @@ package MainPackage;
 import CalculateAPP.*;
 import Interfaces.*;
 import IO.*;
-import Stock.Stock;
+import Security.Stock;
 
 import java.io.*;
 import java.nio.file.Path;
