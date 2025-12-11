@@ -114,7 +114,7 @@ public class Main {
                 }
                 break;
             case "7.1", "7,1":
-                if (findSameStock(calc.getGrahamDealStockList(), calc.getGoodDealStockList()).size() < 3) {
+                if (findSameStock(calc.getGrahamDealStockList(), calc.getGoodDealStockList()).size() <= 3) {
                     for (Stock st : findSameStock(calc.getGrahamDealStockList(), calc.getGoodDealStockList(),
                             calc.getNormalDealStockList())) {
                         System.out.println(st);
@@ -126,7 +126,7 @@ public class Main {
                 break;
             case "7.2", "7,2":
                 writeFile.writeToFile(pathOut.toString(), "\n" + "то что подходит для моих сделок" + "\n" + "\n");
-                if (findSameStock(calc.getGrahamDealStockList(), calc.getGoodDealStockList()).size() < 3) {
+                if (findSameStock(calc.getGrahamDealStockList(), calc.getGoodDealStockList()).size() <= 3) {
                     for (Stock st : findSameStock(calc.getGrahamDealStockList(), calc.getGoodDealStockList(),
                             calc.getNormalDealStockList())) {
                         System.out.println(st);
